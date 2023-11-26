@@ -444,7 +444,7 @@ namespace LiaoTian_Cup
         private void RandomCommanderInfo()
         {
             List<int> beforeRandNum = rk.GenerateXRandomNum(6, FileData.beforeCommanderInfo.Count);
-            List<int> afterRandNum = rk.GenerateXRandomNum(4, FileData.afterCommanderInfo.Count);
+            List<int> afterRandNum = rk.GenerateXRandomNum(4, FileData.afterCommanderInfo_duo.Count);
 
             //相对路径URI指定指挥官图片来源
             BeforeCommander1.Source = new BitmapImage(new Uri(commanderDir + FileData.beforeCommanderInfo[beforeRandNum[0]] + ".png", UriKind.Relative));
@@ -454,10 +454,10 @@ namespace LiaoTian_Cup
             BeforeCommander5.Source = new BitmapImage(new Uri(commanderDir + FileData.beforeCommanderInfo[beforeRandNum[4]] + ".png", UriKind.Relative));
             BeforeCommander6.Source = new BitmapImage(new Uri(commanderDir + FileData.beforeCommanderInfo[beforeRandNum[5]] + ".png", UriKind.Relative));
 
-            AfterCommander1.Source = new BitmapImage(new Uri(commanderDir + FileData.afterCommanderInfo[afterRandNum[0]] + ".png", UriKind.Relative));
-            AfterCommander2.Source = new BitmapImage(new Uri(commanderDir + FileData.afterCommanderInfo[afterRandNum[1]] + ".png", UriKind.Relative));
-            AfterCommander3.Source = new BitmapImage(new Uri(commanderDir + FileData.afterCommanderInfo[afterRandNum[2]] + ".png", UriKind.Relative));
-            AfterCommander4.Source = new BitmapImage(new Uri(commanderDir + FileData.afterCommanderInfo[afterRandNum[3]] + ".png", UriKind.Relative));
+            AfterCommander1.Source = new BitmapImage(new Uri(commanderDir + FileData.afterCommanderInfo_duo[afterRandNum[0]] + ".png", UriKind.Relative));
+            AfterCommander2.Source = new BitmapImage(new Uri(commanderDir + FileData.afterCommanderInfo_duo[afterRandNum[1]] + ".png", UriKind.Relative));
+            AfterCommander3.Source = new BitmapImage(new Uri(commanderDir + FileData.afterCommanderInfo_duo[afterRandNum[2]] + ".png", UriKind.Relative));
+            AfterCommander4.Source = new BitmapImage(new Uri(commanderDir + FileData.afterCommanderInfo_duo[afterRandNum[3]] + ".png", UriKind.Relative));
 
             OldCmdrLabel.Foreground = Brushes.Red;
             NewCmdrLabel.Foreground = Brushes.Red;

@@ -21,6 +21,7 @@ namespace LiaoTian_Cup.Helper
         public static List<string> beforeCommanderInfo = new List<string>();
         //存放后出指挥官CSV中得到的数据
         public static List<string> afterCommanderInfo = new List<string>();
+        public static List<string> afterCommanderInfo_duo = new List<string>();
 
         //存放所有的人机CSV中得到的数据
         public static List<string> botInfo = new List<string>();
@@ -65,6 +66,7 @@ namespace LiaoTian_Cup.Helper
             DbHelper.GetColumnData("global_mutatorlist", mutationFactorList);
             DbHelper.GetColumnData("global_cmdroldlist", beforeCommanderInfo);
             DbHelper.GetColumnData("global_cmdrnewlist", afterCommanderInfo);
+            DbHelper.GetColumnData("global_cmdrnewlist_duo", afterCommanderInfo_duo);
             DbHelper.GetColumnData("ai_table", botInfo);
             DbHelper.GetColumnData("doubles_negativelist", baseNegativeFactorInfo);
             DbHelper.GetColumnData("doubles_multilist", baseMultiFactorInfo);
