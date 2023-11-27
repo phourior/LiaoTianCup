@@ -27,6 +27,7 @@ namespace LiaoTian_Cup.Helper
         public static List<string> botInfo = new List<string>();
 
         //存放因子库CSV中得到的数据
+        public static List<string> FixedFactorInfo = new List<string>();
         public static List<string> baseNegativeFactorInfo = new List<string>();
         public static List<string> baseMultiFactorInfo = new List<string>();
         public static List<string> negativeFactorInfo = new List<string>();
@@ -68,6 +69,7 @@ namespace LiaoTian_Cup.Helper
             DbHelper.GetColumnData("global_cmdrnewlist", afterCommanderInfo);
             DbHelper.GetColumnData("global_cmdrnewlist_duo", afterCommanderInfo_duo);
             DbHelper.GetColumnData("ai_table", botInfo);
+            DbHelper.GetColumnData("fixed_mutators_duo", FixedFactorInfo);
             DbHelper.GetColumnData("doubles_negativelist", baseNegativeFactorInfo);
             DbHelper.GetColumnData("doubles_multilist", baseMultiFactorInfo);
             DbHelper.GetColumnData("global_maplist", mapsInfo);

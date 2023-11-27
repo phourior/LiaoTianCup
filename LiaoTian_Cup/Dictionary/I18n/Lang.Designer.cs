@@ -331,7 +331,7 @@ namespace LiaoTian_Cup.Dictionary.I18n {
         }
         
         /// <summary>
-        ///   查找类似 聊天杯 LiaoTian_Cup v0.3.0 - Programmed by B1ackSand 的本地化字符串。
+        ///   查找类似 聊天杯 LiaoTian_Cup v0.4.0 - Programmed by B1ackSand  &amp; Maintained by phourior 的本地化字符串。
         /// </summary>
         public static string MainWindowTitle {
             get {

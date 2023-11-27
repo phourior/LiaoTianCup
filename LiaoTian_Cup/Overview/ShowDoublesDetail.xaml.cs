@@ -33,6 +33,7 @@ namespace LiaoTian_Cup
             HasSelectBaseFactor1.Source = m_parent.HasSelectBaseFactor1.Source;
             HasSelectBaseFactor2.Source = m_parent.HasSelectBaseFactor2.Source;
             HasSelectBaseFactor3.Source = m_parent.HasSelectBaseFactor3.Source;
+            FixedMutator1.Source = m_parent.FixedFactor1.Source;
 
             HasSelectFactor1.Source = m_parent.HasSelectFactor1.Source;
             HasSelectFactor2.Source = m_parent.HasSelectFactor2.Source;

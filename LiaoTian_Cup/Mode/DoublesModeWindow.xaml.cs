@@ -20,6 +20,7 @@ namespace LiaoTian_Cup
 
         //链表，存放自选因子
         private List<Image> hasSelectBase = new List<Image>(3);
+        private List<Image> hasSelectFixedFactor = new List<Image>(1);
         private List<Image> hasSelectFactor = new List<Image>();
         private List<Image> hasSelectCommander = new List<Image>(2);
         private Image hasSelectMap = new Image();
@@ -102,6 +103,9 @@ namespace LiaoTian_Cup
             RandStartBtn.IsEnabled = true;
             SetRandMapEnable(true);
             SetBaseFactorEnable(true);
+
+            hasSelectFixedFactor.Clear();
+            ClearFixedFactor();
 
             hasSelectBase.Clear();
             BaseConfirmBtn.IsEnabled = false;
@@ -223,10 +227,20 @@ namespace LiaoTian_Cup
             }
             MapLabel.Foreground = Brushes.Gray;
             SetRandMapEnable(false);
+            ShowFixedFactor();
             ShowBaseNegativeFactor();
             ShowBaseMultiFactor();
         }
 
+        //固定因子显示
+        private void ShowFixedFactor()
+        {
+            //相对路径URI指定因子图片来源
+            //todo:randnum
+            List<int> randNum = rk.GenerateXRandomNum(1, FileData.FixedFactorInfo.Count);
+            FixedFactor1.Source = new BitmapImage(new Uri(factorDir + FileData.FixedFactorInfo[randNum[0]] + ".png", UriKind.Relative));
+
+        }
 
         //正面因子显示
         private void ShowBaseNegativeFactor()
@@ -237,7 +251,6 @@ namespace LiaoTian_Cup
             NegativeFactor3.Source = new BitmapImage(new Uri(factorDir + FileData.baseNegativeFactorInfo[2] + ".png", UriKind.Relative));
             NegativeFactor4.Source = new BitmapImage(new Uri(factorDir + FileData.baseNegativeFactorInfo[3] + ".png", UriKind.Relative));
             NegativeFactor5.Source = new BitmapImage(new Uri(factorDir + FileData.baseNegativeFactorInfo[4] + ".png", UriKind.Relative));
-            NegativeFactor6.Source = new BitmapImage(new Uri(factorDir + FileData.baseNegativeFactorInfo[5] + ".png", UriKind.Relative));
 
             NegativeLabel.Foreground = Brushes.Red;
         }
@@ -254,13 +267,17 @@ namespace LiaoTian_Cup
             MultilineLabel.Foreground = Brushes.Red;
         }
 
-        //点击基础因子(正面和多面)图片事件响应
+        //点击基础因子(正面和多线)图片事件响应
         private void Base_MouseDown(object sender, MouseEventArgs e)
         {
             Warn.Text = "";
             Image selectBase = (Image)sender;
             if (selectBase != null)
-            {
+            {   
+                if ((FixedFactor1.Source as BitmapImage).UriSource.ToString().Equals((selectBase.Source as BitmapImage).UriSource.ToString()))
+                {
+                    return;
+                }
                 if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FiveMutatorsMode")) && hasSelectBase != null && !hasSelectBase.Contains(selectBase))
                 {
                     if (hasSelectBase.Count < 2)
@@ -336,12 +353,17 @@ namespace LiaoTian_Cup
         private void ShowRandomFactor()
         {
             var factorListClone = FileData.mutationFactorList.DeepClone();
+            var currentFixedFactor = (FixedFactor1.Source as BitmapImage).UriSource.ToString()
+                        .Replace("/LiaoTian_Cup;component/Resources/factor/", "").Replace(".png", "");
+            factorListClone.Remove(currentFixedFactor);
+
             for (int i = 0; i < hasSelectBase.Count; i++)
             {
 
                 var currentNegativeFactor = (hasSelectBase[i].Source as BitmapImage).UriSource.ToString()
                         .Replace("/LiaoTian_Cup;component/Resources/factor/", "").Replace(".png", "");
 
+                
 
                 if (currentNegativeFactor.Equals("风暴英雄"))
                 {
@@ -383,7 +405,7 @@ namespace LiaoTian_Cup
             {
                 if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FiveMutatorsMode")) && hasSelectFactor != null && !hasSelectFactor.Contains(selectFactor))
                 {
-                    if (hasSelectFactor.Count < 3)
+                    if (hasSelectFactor.Count < 2)
                     {
                         hasSelectFactor.Add(selectFactor);
                     }
@@ -392,7 +414,7 @@ namespace LiaoTian_Cup
 
                 if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("EightMutatorsMode")) && hasSelectFactor != null && !hasSelectFactor.Contains(selectFactor))
                 {
-                    if (hasSelectFactor.Count < 5)
+                    if (hasSelectFactor.Count < 4)
                     {
                         hasSelectFactor.Add(selectFactor);
                     }
@@ -428,12 +450,11 @@ namespace LiaoTian_Cup
             {
                 HasSelectFactor1.Source = hasSelectFactor.Count < 1 ? null : hasSelectFactor[0].Source;
                 HasSelectFactor2.Source = hasSelectFactor.Count < 2 ? null : hasSelectFactor[1].Source;
-                HasSelectFactor3.Source = hasSelectFactor.Count < 3 ? null : hasSelectFactor[2].Source;
 
                 if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("EightMutatorsMode")))
                 {
+                    HasSelectFactor3.Source = hasSelectFactor.Count < 3 ? null : hasSelectFactor[2].Source;
                     HasSelectFactor4.Source = hasSelectFactor.Count < 4 ? null : hasSelectFactor[3].Source;
-                    HasSelectFactor5.Source = hasSelectFactor.Count < 5 ? null : hasSelectFactor[4].Source;
                 }
             }
         }
@@ -511,12 +532,12 @@ namespace LiaoTian_Cup
             botName = IsRandAIFunc();
             if (hasSelectFactor != null)
             {
-                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FiveMutatorsMode")) && hasSelectFactor != null && hasSelectFactor.Count != 3)
+                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FiveMutatorsMode")) && hasSelectFactor != null && hasSelectFactor.Count != 2)
                 {
                     Warn.Text = Dictionary.I18n.Lang.ResourceManager.GetString("FreeMutatorsWarn2");
                     return;
                 }
-                else if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("EightMutatorsMode")) && hasSelectFactor != null && hasSelectFactor.Count != 5)
+                else if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("EightMutatorsMode")) && hasSelectFactor != null && hasSelectFactor.Count != 4)
                 {
                     Warn.Text = Dictionary.I18n.Lang.ResourceManager.GetString("FreeMutatorsWarn3");
                     return;
@@ -573,6 +594,13 @@ namespace LiaoTian_Cup
             HasSelectBaseFactor3.IsEnabled = enable;
 
             BaseConfirmBtn.IsEnabled = enable;
+        }
+
+        //固定因子清除
+        private void ClearFixedFactor()
+        {
+            //相对路径URI指定因子图片来源
+            FixedFactor1.Source = new BitmapImage();
         }
 
         //正面因子清除

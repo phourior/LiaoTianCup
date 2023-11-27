@@ -130,7 +130,7 @@
     <value>官方单刷模式</value>
   </data>
   <data name="About" xml:space="preserve">
-    <value>关于我</value>
+    <value>关于本项目</value>
   </data>
   <data name="PlayerName" xml:space="preserve">
     <value>选手名称：</value>
@@ -196,7 +196,7 @@
     <value>未选择指挥官</value>
   </data>
   <data name="MainWindowTitle" xml:space="preserve">
-    <value>聊天杯 LiaoTian_Cup v0.3.0 - Programmed by B1ackSand</value>
+    <value>聊天杯 LiaoTian_Cup v0.4.0 - Programmed by B1ackSand &amp; Maintained by phourior</value>
   </data>
   <data name="ThreeMutatorsMode" xml:space="preserve">
     <value>3因子模式</value>
