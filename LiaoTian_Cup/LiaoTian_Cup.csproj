@@ -170,6 +170,7 @@
     <None Remove="Resources\factor\风暴英雄.png" />
     <None Remove="Resources\factor\飞弹大战.png" />
     <None Remove="Resources\factor\鲜血重塑.png" />
+    <None Remove="Resources\factor\黑暗镜像.png" />
     <None Remove="Resources\factor\黑死病.png" />
     <None Remove="Resources\factor\默哀.png" />
     <None Remove="Resources\factor\鼓舞人心.png" />
@@ -262,6 +263,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\commander\赛兰蒂斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\factor\黑暗镜像.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\factor\Nexus_BattleField.png">
