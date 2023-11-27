@@ -1,10 +1,12 @@
+# **由于讨厌的势力争斗问题，原作者不再进行维护此项目，现由本人接管更新。**
+
+**以下为原readme**
+
 # LiaoTian_Cup
 
 [LiaoTian Cup](https://qm.qq.com/q/nS395vkauA) is an unofficial competition of StarCraftII.
 
 This project is a competition tool created for my friend, based on WPF (C#/.NET 6.0).
-
-**由于讨厌的势力争斗问题，原作者不再进行开放维护，现由本人接管。**
 
 ## GUI
 ![](https://s2.loli.net/2023/09/20/48vLNREnQ1OkMuy.png)
