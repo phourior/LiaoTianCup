@@ -1,7 +1,3 @@
-# **由于讨厌的势力争斗问题，原作者不再进行维护此项目，现由本人接管更新。**
-
-**以下为原readme**
-
 # LiaoTian_Cup
 
 [LiaoTian Cup](https://qm.qq.com/q/nS395vkauA) is an unofficial competition of StarCraftII.
