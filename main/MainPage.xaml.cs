@@ -64,16 +64,6 @@ namespace main
             this.NavigationService.Navigate(new Uri("/main;component/Mode/HubSoloModeWindow.xaml", UriKind.Relative));
         }
 
-        private void AboutMeBtn(object sender, RoutedEventArgs e)
-        {
-            var url = "https://github.com/phourior/LiaoTianCup";
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
-        }
 
-        private void AddGroupBtn(object sender, RoutedEventArgs e)
-        {
-            string url = "https://qm.qq.com/q/nS395vkauA";
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
-        }
     }
 }
