@@ -81,17 +81,7 @@
         </Grid>
 
         <Grid Grid.Row="2" Grid.ColumnSpan="3">
-            <StackPanel>
-
-                <Button
-                    Width="120"
-                    Height="40"
-                    Margin="20,0,0,10"
-                    HorizontalAlignment="Left"
-                    Click="I18nBtn"
-                    Content="{Binding [LangBtn], Source={x:Static local:LanguageManager.Instance}}"
-                    FontSize="15" />
-            </StackPanel>
+            <StackPanel/>
 
         </Grid>
     </Grid>
