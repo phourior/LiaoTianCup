@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using LiaoTian_Cup.Helper;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace LiaoTian_Cup
 {
@@ -36,6 +38,36 @@ namespace LiaoTian_Cup
             HasSelectFactor3.Source = m_parent.HasSelectFactor3.Source;
             HasSelectFactor4.Source = m_parent.HasSelectFactor4.Source;
             HasSelectFactor5.Source = m_parent.HasSelectFactor5.Source;
+
+            string SelectFactor1_name = (HasSelectFactor1.Source as BitmapImage).UriSource.ToString().Replace("/LiaoTian_Cup;component/Resources/factor/", "").Replace(".png", "");
+            HasSelectFactor1_index.Content = FileData.mutator_index_dict[SelectFactor1_name];
+            string SelectFactor2_name = (HasSelectFactor2.Source as BitmapImage).UriSource.ToString().Replace("/LiaoTian_Cup;component/Resources/factor/", "").Replace(".png", "");
+            HasSelectFactor2_index.Content = FileData.mutator_index_dict[SelectFactor2_name];
+            string SelectFactor3_name = (HasSelectFactor3.Source as BitmapImage).UriSource.ToString().Replace("/LiaoTian_Cup;component/Resources/factor/", "").Replace(".png", "");
+            HasSelectFactor3_index.Content = FileData.mutator_index_dict[SelectFactor3_name];
+
+            if (HasSelectFactor5.Source == null)
+            {
+                HasSelectFactor5_index.Content = "";
+            }
+            else
+            {
+                string HasSelectFactor5_name = (HasSelectFactor3.Source as BitmapImage).UriSource.ToString().Replace("/LiaoTian_Cup;component/Resources/factor/", "").Replace(".png", "");
+                HasSelectFactor5_index.Content = FileData.mutator_index_dict[HasSelectFactor5_name];
+            }
+
+            if (HasSelectFactor4.Source == null)
+            {
+                HasSelectFactor4_index.Content = "";
+            }
+            else
+            {
+                string HasSelectFactor4_name = (HasSelectFactor4.Source as BitmapImage).UriSource.ToString().Replace("/LiaoTian_Cup;component/Resources/factor/", "").Replace(".png", "");
+                HasSelectFactor4_index.Content = FileData.mutator_index_dict[HasSelectFactor4_name];
+            }
+
+
+
             Score.Text = m_parent.Score.Text;
 
             HasSelectCommander.Source = m_parent.HasSelectCommander.Source;

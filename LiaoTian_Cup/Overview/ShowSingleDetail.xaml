@@ -78,6 +78,43 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
+                <Grid Grid.Row="1">
+                    <Label
+                        Margin="160,120,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        x:Name="HasSelectFactor1_index"
+                        FontSize="20"
+                        FontWeight="Bold" />
+                    <Label
+                        Margin="235,120,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        x:Name="HasSelectFactor2_index"
+                        FontSize="20"
+                        FontWeight="Bold" />
+                    <Label
+                        Margin="310,120,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        x:Name="HasSelectFactor3_index"
+                        FontSize="20"
+                        FontWeight="Bold" />
+                    <Label
+                        Margin="385,120,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        x:Name="HasSelectFactor4_index"
+                        FontSize="20"
+                        FontWeight="Bold" />
+                    <Label
+                        Margin="460,120,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        x:Name="HasSelectFactor5_index"
+                        FontSize="20"
+                        FontWeight="Bold" />
+                </Grid>
                 <StackPanel Margin="0,18,0,0" Orientation="Horizontal">
                     <Label
                         Margin="18,0,0,0"

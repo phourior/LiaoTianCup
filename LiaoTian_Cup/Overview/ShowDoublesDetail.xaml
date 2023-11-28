@@ -81,6 +81,7 @@
                     Content="{Binding [HasSelectBaseMutators], Source={x:Static local:LanguageManager.Instance}}"
                     FontSize="20"
                     FontWeight="Bold" />
+                
                 <Image
                     x:Name="HasSelectBaseFactor1"
                     Width="60"
@@ -111,6 +112,36 @@
                     Margin="15,0,0,0"
                     HorizontalAlignment="Left" />
             </StackPanel>
+            <Grid Grid.Row="1">
+                <Label
+                    Margin="180,100,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    x:Name="HasSelectBaseFactor1_index"
+                    FontSize="20"
+                    FontWeight="Bold" />
+                <Label
+                   Margin="255,100,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   x:Name="HasSelectBaseFactor2_index"
+                   FontSize="20"
+                   FontWeight="Bold" />
+                <Label
+                   Margin="330,100,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   x:Name="HasSelectBaseFactor3_index"
+                   FontSize="20"
+                   FontWeight="Bold" />
+                <Label
+                   Margin="675,100,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   x:Name="FixedFactor_index"
+                   FontSize="20"
+                   FontWeight="Bold" />
+            </Grid>
         </Grid>
 
         <Grid Grid.Row="3">
@@ -158,6 +189,36 @@
                         Margin="15,0,0,0"
                         HorizontalAlignment="Left" />
                 </StackPanel>
+                <Grid Grid.Row="1">
+                    <Label
+                    Margin="160,120,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    x:Name="HasSelectFactor1_index"
+                    FontSize="20"
+                    FontWeight="Bold" />
+                    <Label
+                   Margin="235,120,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   x:Name="HasSelectFactor2_index"
+                   FontSize="20"
+                   FontWeight="Bold" />
+                    <Label
+                   Margin="310,120,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   x:Name="HasSelectFactor3_index"
+                   FontSize="20"
+                   FontWeight="Bold" />
+                    <Label
+                   Margin="385,120,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   x:Name="HasSelectFactor4_index"
+                   FontSize="20"
+                   FontWeight="Bold" />
+                </Grid>
             </Grid>
             <Grid Grid.Row="1">
                 <StackPanel Margin="0,18,0,0" Orientation="Horizontal">

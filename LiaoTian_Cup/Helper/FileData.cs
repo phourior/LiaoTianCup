@@ -11,6 +11,8 @@ namespace LiaoTian_Cup.Helper
     public class FileData
     {
         //公共信息提取
+        public static Dictionary<string, string> mutator_index_dict = new Dictionary<string, string>();
+        
         //存放从自选突变CSV中得到的数据
         public static List<string[]> mutationList = new List<string[]>();
 
@@ -59,6 +61,8 @@ namespace LiaoTian_Cup.Helper
         //读取数据库
         private void ReadDataBase()
         {
+            mutator_index_dict = DbHelper.getDict_index_by_name();
+
             DbHelper.GetListData("global_weeklymutations", 5, mutationList);
             DbHelper.GetCostListData("group_MutatorList_Cost", 3, scoreFactorList);
             DbHelper.GetCostListData("hub_MutatorList_Cost", 3, hubFactorCostList);

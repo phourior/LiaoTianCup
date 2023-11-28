@@ -24,6 +24,7 @@ namespace LiaoTian_Cup
         private List<Image> hasSelectFactor = new List<Image>();
         private List<Image> hasSelectCommander = new List<Image>(2);
         private Image hasSelectMap = new Image();
+
         
 
 
@@ -236,7 +237,6 @@ namespace LiaoTian_Cup
         private void ShowFixedFactor()
         {
             //相对路径URI指定因子图片来源
-            //todo:randnum
             List<int> randNum = rk.GenerateXRandomNum(1, FileData.FixedFactorInfo.Count);
             string uri = factorDir + FileData.FixedFactorInfo[randNum[0]] + ".png";
             FixedFactor1.Source = new BitmapImage(new Uri(uri, UriKind.Relative));
