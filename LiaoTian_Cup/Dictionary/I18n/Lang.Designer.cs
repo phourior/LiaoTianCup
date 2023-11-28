@@ -187,7 +187,7 @@ namespace LiaoTian_Cup.Dictionary.I18n {
         }
         
         /// <summary>
-        ///   查找类似 Official co-op mode 的本地化字符串。
+        ///   查找类似 Official co-op 的本地化字符串。
         /// </summary>
         public static string DoublesMode {
             get {
@@ -196,7 +196,7 @@ namespace LiaoTian_Cup.Dictionary.I18n {
         }
         
         /// <summary>
-        ///   查找类似 8 mutators mode 的本地化字符串。
+        ///   查找类似 8 mutators 的本地化字符串。
         /// </summary>
         public static string EightMutatorsMode {
             get {
@@ -205,7 +205,7 @@ namespace LiaoTian_Cup.Dictionary.I18n {
         }
         
         /// <summary>
-        ///   查找类似 5 mutators mode 的本地化字符串。
+        ///   查找类似 5 mutators 的本地化字符串。
         /// </summary>
         public static string FiveMutatorsMode {
             get {
@@ -304,7 +304,7 @@ namespace LiaoTian_Cup.Dictionary.I18n {
         }
         
         /// <summary>
-        ///   查找类似 Nexus co-op Mode 的本地化字符串。
+        ///   查找类似 Nexus co-op 的本地化字符串。
         /// </summary>
         public static string HubMode {
             get {
@@ -313,7 +313,7 @@ namespace LiaoTian_Cup.Dictionary.I18n {
         }
         
         /// <summary>
-        ///   查找类似 Nexus solo mode 的本地化字符串。
+        ///   查找类似 Nexus solo 的本地化字符串。
         /// </summary>
         public static string HubSoloMode {
             get {
@@ -331,7 +331,7 @@ namespace LiaoTian_Cup.Dictionary.I18n {
         }
         
         /// <summary>
-        ///   查找类似 聊天杯 LiaoTian_Cup v0.4.0 - Programmed by B1ackSand  &amp; Maintained by phourior 的本地化字符串。
+        ///   查找类似 Software for practice v0.1.0 - Maintained by phourior 的本地化字符串。
         /// </summary>
         public static string MainWindowTitle {
             get {
@@ -394,7 +394,7 @@ namespace LiaoTian_Cup.Dictionary.I18n {
         }
         
         /// <summary>
-        ///   查找类似 Pure negative mode 的本地化字符串。
+        ///   查找类似 Pure negative 的本地化字符串。
         /// </summary>
         public static string NegativeMutatorsMode {
             get {
@@ -502,7 +502,7 @@ namespace LiaoTian_Cup.Dictionary.I18n {
         }
         
         /// <summary>
-        ///   查找类似 Official solo mode 的本地化字符串。
+        ///   查找类似 Official solo 的本地化字符串。
         /// </summary>
         public static string SingleMode {
             get {
@@ -511,7 +511,7 @@ namespace LiaoTian_Cup.Dictionary.I18n {
         }
         
         /// <summary>
-        ///   查找类似 6 mutators mode 的本地化字符串。
+        ///   查找类似 6 mutators 的本地化字符串。
         /// </summary>
         public static string SixMutatorsMode {
             get {
@@ -520,7 +520,7 @@ namespace LiaoTian_Cup.Dictionary.I18n {
         }
         
         /// <summary>
-        ///   查找类似 3 mutators mode 的本地化字符串。
+        ///   查找类似 3 mutators 的本地化字符串。
         /// </summary>
         public static string ThreeMutatorsMode {
             get {
@@ -529,7 +529,7 @@ namespace LiaoTian_Cup.Dictionary.I18n {
         }
         
         /// <summary>
-        ///   查找类似 Usuck mode 的本地化字符串。
+        ///   查找类似 Usuck 的本地化字符串。
         /// </summary>
         public static string USuckMode {
             get {

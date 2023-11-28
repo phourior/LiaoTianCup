@@ -6,7 +6,6 @@
     xmlns:local="clr-namespace:LiaoTian_Cup.Dictionary.I18n"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="{Binding [MainWindowTitle], Source={x:Static local:LanguageManager.Instance}}"
-    Icon="/LiaoTian_Cup;component/Resources/Logo/icon.ico"
     ResizeMode="CanMinimize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">

@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="RandMutationsMode" xml:space="preserve">
-    <value>随机官突模式</value>
+    <value>随机官突</value>
   </data>
   <data name="NegativeMutatorsMode" xml:space="preserve">
     <value>纯正面因子模式</value>
   </data>
   <data name="DoublesMode" xml:space="preserve">
-    <value>官方双打模式</value>
+    <value>官方双打</value>
   </data>
   <data name="SingleMode" xml:space="preserve">
-    <value>官方单刷模式</value>
+    <value>官方单刷</value>
   </data>
   <data name="About" xml:space="preserve">
     <value>关于本项目</value>
@@ -196,13 +196,13 @@
     <value>未选择指挥官</value>
   </data>
   <data name="MainWindowTitle" xml:space="preserve">
-    <value>聊天杯 LiaoTian_Cup v0.4.0 - Programmed by B1ackSand &amp; Maintained by phourior</value>
+    <value>练习软件 v0.1.0 - Maintained by phourior</value>
   </data>
   <data name="ThreeMutatorsMode" xml:space="preserve">
-    <value>3因子模式</value>
+    <value>3因子</value>
   </data>
   <data name="FiveMutatorsMode" xml:space="preserve">
-    <value>5因子模式</value>
+    <value>5因子</value>
   </data>
   <data name="ConfirmMapBtn" xml:space="preserve">
     <value>确认地图</value>
@@ -280,7 +280,7 @@
     <value>多线因子：</value>
   </data>
   <data name="EightMutatorsMode" xml:space="preserve">
-    <value>8因子模式</value>
+    <value>8因子</value>
   </data>
   <data name="FreeMutatorsWarn3" xml:space="preserve">
     <value>8因子模式需要至少自选5个因子</value>
@@ -355,10 +355,10 @@
     <value>族长之军</value>
   </data>
   <data name="USuckMode" xml:space="preserve">
-    <value>Usuck 模式</value>
+    <value>Usuck</value>
   </data>
   <data name="HubMode" xml:space="preserve">
-    <value>枢纽双打模式</value>
+    <value>枢纽双打</value>
   </data>
   <data name="CommanderWarnUsuck" xml:space="preserve">
     <value>Usuck模式需选择两名指挥官</value>
@@ -367,7 +367,7 @@
     <value>枢纽双打模式需选择两名指挥官</value>
   </data>
   <data name="SixMutatorsMode" xml:space="preserve">
-    <value>6因子模式</value>
+    <value>6因子</value>
   </data>
   <data name="BraveMode" xml:space="preserve">
     <value>勇敢者游戏模式</value>
@@ -394,7 +394,7 @@
     <value>6因子模式需要至少自选4个因子</value>
   </data>
   <data name="HubSoloMode" xml:space="preserve">
-    <value>枢纽单刷模式</value>
+    <value>枢纽单刷</value>
   </data>
   <data name="铁甲钢拳" xml:space="preserve">
     <value>铁甲钢拳</value>

@@ -1,18 +1,6 @@
-# **由于讨厌的势力争斗问题，原作者不再进行维护此项目，现由本人接管更新。**
 
-**以下为原readme**
 
-# LiaoTian_Cup
-
-[LiaoTian Cup](https://qm.qq.com/q/nS395vkauA) is an unofficial competition of StarCraftII.
-
-This project is a competition tool created for my friend, based on WPF (C#/.NET 6.0).
-
-## GUI
-![](https://s2.loli.net/2023/09/20/48vLNREnQ1OkMuy.png)
-![](https://s2.loli.net/2023/09/20/mNxeP4R8SdFbZ3W.png)
-![](https://s2.loli.net/2023/09/20/dAazeQhuOorygYR.png)
-![](https://s2.loli.net/2023/09/20/oD6zGtgZLuywUI2.png)
+# README
 
 ## Todo
 
@@ -34,6 +22,6 @@ This project is a competition tool created for my friend, based on WPF (C#/.NET 
 
 ## 许可补充说明
 + 根据GPL3许可证协议你可以自行修改源代码，但无论以何种方式修改或者使用代码，都需要开源。
-+ 由于此工具为聊天杯 - “星际争霸2”非官方比赛工具，开源目的是供社区学习使用和软件逻辑公开。
-+ 禁止任何人通过修改工具代码，在非聊天杯比赛中达成利益目的。
+
+  
 

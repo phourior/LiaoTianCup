@@ -177,7 +177,6 @@
     <None Remove="Resources\factor\龙卷风暴.png" />
     <None Remove="Resources\group_FactorList_Score.csv" />
     <None Remove="Resources\Logo\icon.ico" />
-    <None Remove="Resources\Logo\聊天杯标题.png" />
     <None Remove="Resources\maps\亡者之夜.png" />
     <None Remove="Resources\maps\克哈裂痕.png" />
     <None Remove="Resources\maps\决战塔桑尼斯.png" />
@@ -643,11 +642,7 @@
     </Resource>
     <Resource Include="Resources\factor\龙卷风暴.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Logo\聊天杯标题.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\maps\亡者之夜.png">
+    </Resource>    <Resource Include="Resources\maps\亡者之夜.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\maps\克哈裂痕.png">

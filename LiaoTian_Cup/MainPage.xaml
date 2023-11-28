@@ -22,14 +22,9 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" Grid.ColumnSpan="3">
-            <Image
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                Source="/LiaoTian_Cup;component/Resources/Logo/聊天杯标题.png" />
-        </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="0">
+
+        <Grid Grid.ColumnSpan="2" Margin="196,25,197,25" Grid.RowSpan="2" Grid.Row="1">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
                 <StackPanel.Resources>
                     <Style TargetType="Button">
@@ -43,15 +38,15 @@
                 </StackPanel.Resources>
 
                 <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
-                    <Button Click="Button_RandomMutation_Click" Content="{Binding [RandMutationsMode], Source={x:Static local:LanguageManager.Instance}}" />
-                    <Button Click="Button_Negative_Click" Content="{Binding [NegativeMutatorsMode], Source={x:Static local:LanguageManager.Instance}}" />
                     <Button Click="Button_Single_Click" Content="{Binding [SingleMode], Source={x:Static local:LanguageManager.Instance}}" />
                     <Button Click="Button_Doubles_Click" Content="{Binding [DoublesMode], Source={x:Static local:LanguageManager.Instance}}" />
+                    <Button Click="Button_Negative_Click" Content="{Binding [NegativeMutatorsMode], Source={x:Static local:LanguageManager.Instance}}" />
+                    <Button Click="Button_RandomMutation_Click" Content="{Binding [RandMutationsMode], Source={x:Static local:LanguageManager.Instance}}" />
                 </StackPanel>
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid Margin="197,102,200,-52" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
                 <StackPanel.Resources>
                     <Style TargetType="Button">
@@ -63,13 +58,12 @@
                         <Setter Property="FontSize" Value="20" />
                     </Style>
                 </StackPanel.Resources>
-
                 <Button Click="Button_SoloHub_Click" Content="{Binding [HubSoloMode], Source={x:Static local:LanguageManager.Instance}}" />
                 <Button Click="Button_Hub_Click" Content="{Binding [HubMode], Source={x:Static local:LanguageManager.Instance}}" />
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="2">
+        <Grid Grid.Column="1" Margin="195,25,200,25" Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Row="1">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
                 <StackPanel.Resources>
                     <Style TargetType="Button">
@@ -88,14 +82,7 @@
 
         <Grid Grid.Row="2" Grid.ColumnSpan="3">
             <StackPanel>
-                <Button
-                    Width="120"
-                    Height="40"
-                    Margin="20,0,0,10"
-                    HorizontalAlignment="Left"
-                    Click="AboutMeBtn"
-                    Content="{Binding [About], Source={x:Static local:LanguageManager.Instance}}"
-                    FontSize="15" />
+
                 <Button
                     Width="120"
                     Height="40"
@@ -105,15 +92,7 @@
                     Content="{Binding [LangBtn], Source={x:Static local:LanguageManager.Instance}}"
                     FontSize="15" />
             </StackPanel>
-            <Button
-                Width="160"
-                Height="40"
-                Margin="0,0,15,10"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Click="AddGroupBtn"
-                Content="赛事群：437813472"
-                FontSize="15" />
+
         </Grid>
     </Grid>
 </Page>
