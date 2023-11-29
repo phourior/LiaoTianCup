@@ -126,6 +126,7 @@
     <None Remove="Resources\factor\核弹打击.png" />
     <None Remove="Resources\factor\此面向敌.png" />
     <None Remove="Resources\factor\死灵之书.png" />
+    <None Remove="Resources\factor\毁灭机器.png" />
     <None Remove="Resources\factor\混乱工作室.png" />
     <None Remove="Resources\factor\激光钻机.png" />
     <None Remove="Resources\factor\灵能爆表.png" />
@@ -262,6 +263,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\commander\赛兰蒂斯.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\factor\毁灭机器.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\factor\黑暗镜像.png">

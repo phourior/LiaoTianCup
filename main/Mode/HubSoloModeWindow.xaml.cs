@@ -63,8 +63,8 @@ namespace main
             }
         }
 
-        //模式选择（3因子模式,5因子模式）数据
-        private string _modeName = Dictionary.I18n.Lang.ResourceManager.GetString("ThreeMutatorsMode");
+        //模式选择（4因子模式,6因子模式）数据
+        private string _modeName = Dictionary.I18n.Lang.ResourceManager.GetString("FourMutatorsMode");
         public string modeName
         {
             get { return _modeName; }
@@ -247,7 +247,7 @@ namespace main
         {
             var factorListClone = FileData.hubFactorCostList.DeepClone();
 
-            if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("ThreeMutatorsMode")))
+            if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FourMutatorsMode")))
             {
                 for (int i = 0; i < factorListClone.Count; i++)
                 {
@@ -268,7 +268,7 @@ namespace main
                 SelectFactor5.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum[4]][1] + ".png", UriKind.Relative));
                 SelectFactor6.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum[5]][1] + ".png", UriKind.Relative));
             }
-            else if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FiveMutatorsMode")))
+            else if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SixMutatorsMode")))
             {
                 //3% 18% 79%
                 SortedSet<int> randNum = new SortedSet<int>();
@@ -327,7 +327,7 @@ namespace main
             Image selectFactor = (Image)sender;
             if (selectFactor != null)
             {
-                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("ThreeMutatorsMode")) && hasSelectFactor != null && !hasSelectFactor.Contains(selectFactor) && !hasSelectBanFactor.Contains(selectFactor))
+                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FourMutatorsMode")) && hasSelectFactor != null && !hasSelectFactor.Contains(selectFactor) && !hasSelectBanFactor.Contains(selectFactor))
                 {
                     if (hasSelectFactor.Count < 3)
                     {
@@ -337,7 +337,7 @@ namespace main
 
                 }
 
-                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FiveMutatorsMode")) && hasSelectFactor != null && !hasSelectFactor.Contains(selectFactor) && !hasSelectBanFactor.Contains(selectFactor))
+                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SixMutatorsMode")) && hasSelectFactor != null && !hasSelectFactor.Contains(selectFactor) && !hasSelectBanFactor.Contains(selectFactor))
                 {
                     if (hasSelectFactor.Count < 5)
                     {
@@ -357,7 +357,7 @@ namespace main
             Image selectFactor = (Image)sender;
             if (selectFactor != null)
             {
-                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("ThreeMutatorsMode")) && hasSelectBanFactor != null && !hasSelectBanFactor.Contains(selectFactor) && !hasSelectFactor.Contains(selectFactor))
+                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FourMutatorsMode")) && hasSelectBanFactor != null && !hasSelectBanFactor.Contains(selectFactor) && !hasSelectFactor.Contains(selectFactor))
                 {
                     if (hasSelectBanFactor.Count < 3)
                     {
@@ -366,7 +366,7 @@ namespace main
 
                 }
 
-                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FiveMutatorsMode")) && hasSelectBanFactor != null && !hasSelectBanFactor.Contains(selectFactor) && !hasSelectFactor.Contains(selectFactor))
+                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SixMutatorsMode")) && hasSelectBanFactor != null && !hasSelectBanFactor.Contains(selectFactor) && !hasSelectFactor.Contains(selectFactor))
                 {
                     if (hasSelectBanFactor.Count < 5)
                     {
@@ -440,7 +440,7 @@ namespace main
                 HasSelectFactor2.Source = hasSelectFactor.Count < 2 ? null : hasSelectFactor[1].Source;
                 HasSelectFactor3.Source = hasSelectFactor.Count < 3 ? null : hasSelectFactor[2].Source;
 
-                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FiveMutatorsMode")))
+                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SixMutatorsMode")))
                 {
                     HasSelectFactor4.Source = hasSelectFactor.Count < 4 ? null : hasSelectFactor[3].Source;
                     HasSelectFactor5.Source = hasSelectFactor.Count < 5 ? null : hasSelectFactor[4].Source;
@@ -457,7 +457,7 @@ namespace main
                 HasSelectBanFactor2.Source = hasSelectBanFactor.Count < 2 ? null : hasSelectBanFactor[1].Source;
                 HasSelectBanFactor3.Source = hasSelectBanFactor.Count < 3 ? null : hasSelectBanFactor[2].Source;
 
-                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FiveMutatorsMode")))
+                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SixMutatorsMode")))
                 {
                     HasSelectBanFactor4.Source = hasSelectBanFactor.Count < 4 ? null : hasSelectBanFactor[3].Source;
                     HasSelectBanFactor5.Source = hasSelectBanFactor.Count < 5 ? null : hasSelectBanFactor[4].Source;
@@ -524,12 +524,12 @@ namespace main
             botName = IsRandAIFunc();
             if (hasSelectFactor != null)
             {
-                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("ThreeMutatorsMode")) && hasSelectFactor != null && hasSelectFactor.Count != 3)
+                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FourMutatorsMode")) && hasSelectFactor != null && hasSelectFactor.Count != 3)
                 {
                     Warn.Text = Dictionary.I18n.Lang.ResourceManager.GetString("FreeMutatorsWarn1");
                     return;
                 }
-                else if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FiveMutatorsMode")) && hasSelectFactor != null && hasSelectFactor.Count != 5)
+                else if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SixMutatorsMode")) && hasSelectFactor != null && hasSelectFactor.Count != 5)
                 {
                     Warn.Text = Dictionary.I18n.Lang.ResourceManager.GetString("FreeMutatorsWarn2");
                     return;

@@ -21,6 +21,7 @@ namespace main.Mode
 
         //链表，存放自选因子
         private List<Image> hasSelectBase = new List<Image>(3);
+        private List<Image> hasSelectFixedFactor = new List<Image>(2);
         private List<Image> hasSelectFactor = new List<Image>();
         private List<Image> hasSelectCommander = new List<Image>(2);
         private Image hasSelectMap = new Image();
@@ -108,6 +109,9 @@ namespace main.Mode
             ClearBaseNegativeFactor();
             ClearBaseMultiFactor();
             FlashSelectBase();
+
+            hasSelectFixedFactor.Clear();
+            ClearFixedFactor();
 
             hasSelectFactor.Clear();
             ClearRandomFactor();
@@ -240,10 +244,25 @@ namespace main.Mode
             }
             MapLabel.Foreground = Brushes.Gray;
             SetRandMapEnable(false);
+            ShowFixedFactor();
             ShowBaseNegativeFactor();
             ShowBaseMultiFactor();
         }
 
+        //固定因子显示
+        private void ShowFixedFactor()
+        {
+            //相对路径URI指定因子图片来源
+            List<int> randNum = rk.GenerateXRandomNum(2, FileData.hubFixedFactorInfo.Count);
+            string uri = factorDir + FileData.hubFixedFactorInfo[randNum[0]] + ".png";
+            FixedFactor1.Source = new BitmapImage(new Uri(uri, UriKind.Relative));
+
+            if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("EightMutatorsMode")))
+            {
+                FixedFactor2.Source = new BitmapImage(new Uri((factorDir + FileData.hubFixedFactorInfo[randNum[1]] + ".png"), UriKind.Relative));
+            }
+
+        }
 
         //正面因子显示
         private void ShowBaseNegativeFactor()
@@ -262,9 +281,7 @@ namespace main.Mode
             NegativeFactor10.Source = new BitmapImage(new Uri(factorDir + FileData.hubNegativeFactorInfo[9] + ".png", UriKind.Relative));
             NegativeFactor11.Source = new BitmapImage(new Uri(factorDir + FileData.hubNegativeFactorInfo[10] + ".png", UriKind.Relative));
             NegativeFactor12.Source = new BitmapImage(new Uri(factorDir + FileData.hubNegativeFactorInfo[11] + ".png", UriKind.Relative));
-            NegativeFactor13.Source = new BitmapImage(new Uri(factorDir + FileData.hubNegativeFactorInfo[12] + ".png", UriKind.Relative));
-            NegativeFactor14.Source = new BitmapImage(new Uri(factorDir + FileData.hubNegativeFactorInfo[13] + ".png", UriKind.Relative));
-            NegativeFactor15.Source = new BitmapImage(new Uri(factorDir + Dictionary.I18n.Lang.ResourceManager.GetString("时空战场") + ".png", UriKind.Relative));
+
         }
 
         //多线因子显示
@@ -276,10 +293,7 @@ namespace main.Mode
             MultiFactor3.Source = new BitmapImage(new Uri(factorDir + FileData.hubMultiFactorInfo[2] + ".png", UriKind.Relative));
             MultiFactor4.Source = new BitmapImage(new Uri(factorDir + FileData.hubMultiFactorInfo[3] + ".png", UriKind.Relative));
             MultiFactor5.Source = new BitmapImage(new Uri(factorDir + FileData.hubMultiFactorInfo[4] + ".png", UriKind.Relative));
-            MultiFactor6.Source = new BitmapImage(new Uri(factorDir + FileData.hubMultiFactorInfo[5] + ".png", UriKind.Relative));
-            MultiFactor7.Source = new BitmapImage(new Uri(factorDir + FileData.hubMultiFactorInfo[6] + ".png", UriKind.Relative));
-            MultiFactor8.Source = new BitmapImage(new Uri(factorDir + FileData.hubMultiFactorInfo[7] + ".png", UriKind.Relative));
-            MultiFactor9.Source = new BitmapImage(new Uri(factorDir + FileData.hubMultiFactorInfo[8] + ".png", UriKind.Relative));
+
         }
 
         //点击基础因子(正面和多面)图片事件响应
@@ -289,6 +303,19 @@ namespace main.Mode
             Image selectBase = (Image)sender;
             if (selectBase != null)
             {
+                if ((FixedFactor1.Source as BitmapImage).UriSource.ToString().Equals((selectBase.Source as BitmapImage).UriSource.ToString()))
+                {
+                    return;
+                }
+
+                if (FixedFactor2.Source != null)
+                {
+                    if ((FixedFactor2.Source as BitmapImage).UriSource.ToString().Equals((selectBase.Source as BitmapImage).UriSource.ToString()))
+                    {
+                        return;
+                    }
+                }
+
                 if ((_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SixMutatorsMode"))
                     || _modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("BraveMode")))
                     && hasSelectBase != null 
@@ -302,7 +329,7 @@ namespace main.Mode
 
                 if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("EightMutatorsMode")) && hasSelectBase != null && !hasSelectBase.Contains(selectBase))
                 {
-                    if (hasSelectBase.Count < 3)
+                    if (hasSelectBase.Count < 1)
                     {
                         hasSelectBase.Add(selectBase);
                     }
@@ -339,7 +366,7 @@ namespace main.Mode
                 Warn.Text = Dictionary.I18n.Lang.ResourceManager.GetString("BaseMutatorsWarn");
                 return;
             }
-            if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("EightMutatorsMode")) && hasSelectBase.Count < 3)
+            if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("EightMutatorsMode")) && hasSelectBase.Count < 1)
             {
                 Warn.Text = Dictionary.I18n.Lang.ResourceManager.GetString("BaseMutatorsWarn");
                 return;
@@ -407,7 +434,7 @@ namespace main.Mode
                     || _modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("BraveMode")))
                     && hasSelectFactor != null && !hasSelectFactor.Contains(selectFactor))
                 {
-                    if (hasSelectFactor.Count < 4)
+                    if (hasSelectFactor.Count < 3)
                     {
                         hasSelectFactor.Add(selectFactor);
                     }
@@ -533,7 +560,7 @@ namespace main.Mode
             botName = IsRandAIFunc();
             if (hasSelectFactor != null)
             {
-                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SixMutatorsMode")) && hasSelectFactor != null && hasSelectFactor.Count != 4)
+                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SixMutatorsMode")) && hasSelectFactor != null && hasSelectFactor.Count != 3)
                 {
                     Warn.Text = Dictionary.I18n.Lang.ResourceManager.GetString("FreeMutatorsWarn4");
                     return;
@@ -606,6 +633,14 @@ namespace main.Mode
             HasSelectBaseFactor3.IsEnabled = enable;
 
             BaseConfirmBtn.IsEnabled = enable;
+        }
+
+        //固定因子清除
+        private void ClearFixedFactor()
+        {
+            //相对路径URI指定因子图片来源
+            FixedFactor1.Source = new BitmapImage();
+            FixedFactor2.Source = new BitmapImage();
         }
 
         //正面因子清除

@@ -348,6 +348,13 @@
                         Foreground="Red"
                         Text="" />
                 </StackPanel>
+                <Grid Grid.Row="0" Margin="450,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Label x:Name="FixedMutator" Content="固定因子：" />
+                        <Image x:Name="FixedFactor1" />
+                        <Image x:Name="FixedFactor2" />
+                    </StackPanel>
+                </Grid>
             </Grid>
 
             <Grid Grid.Row="1">
@@ -378,6 +385,7 @@
                         <Image x:Name="HasSelectFactor4" />
                         <Image x:Name="HasSelectFactor5" />
                     </StackPanel>
+                    
                 </StackPanel>
             </Grid>
 

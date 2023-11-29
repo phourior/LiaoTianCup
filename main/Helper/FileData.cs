@@ -41,6 +41,7 @@ namespace main.Helper
         public static List<string> usuckFactorList = new List<string>();
 
         //Hub
+        public static List<string> hubFixedFactorInfo = new List<string>();
         public static List<string> hubNegativeFactorInfo = new List<string>();
         public static List<string> hubMultiFactorInfo = new List<string>();
         public static List<string> hubFactorList = new List<string>();
@@ -85,6 +86,7 @@ namespace main.Helper
             DbHelper.GetColumnData("usuck_negativelist", usuckNegativeFactorInfo);
 
             //Hub
+            DbHelper.GetColumnData("fixed_hub_mutators", hubFixedFactorInfo);
             DbHelper.GetColumnData("hub_mutatorlist", hubFactorList);
             DbHelper.GetColumnData("hub_multilist", hubMultiFactorInfo);
             DbHelper.GetColumnData("hub_negativelist", hubNegativeFactorInfo);

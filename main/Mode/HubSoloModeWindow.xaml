@@ -60,8 +60,8 @@
                     IsEditable="False"
                     Style="{StaticResource BaseComboBox}"
                     Text="{Binding Path=modeName}">
-                    <ComboBoxItem Content="{Binding [ThreeMutatorsMode], Source={x:Static local:LanguageManager.Instance}}" />
-                    <ComboBoxItem Content="{Binding [FiveMutatorsMode], Source={x:Static local:LanguageManager.Instance}}" />
+                    <ComboBoxItem Content="{Binding [FourMutatorsMode], Source={x:Static local:LanguageManager.Instance}}" />
+                    <ComboBoxItem Content="{Binding [SevenMutatorsMode], Source={x:Static local:LanguageManager.Instance}}" />
                 </ComboBox>
             </StackPanel>
         </Grid>

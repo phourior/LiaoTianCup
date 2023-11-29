@@ -27,6 +27,10 @@ namespace main.Overview
 
             HasSelectMap.Source = m_parent.HasSelectMap.Source;
             MapTip.Text = m_parent.MapTip.Text;
+
+            FixedMutator1.Source = m_parent.FixedFactor1.Source;
+            FixedMutator2.Source = m_parent.FixedFactor2.Source;
+
             HasSelectBaseFactor1.Source = m_parent.HasSelectBaseFactor1.Source;
             HasSelectBaseFactor2.Source = m_parent.HasSelectBaseFactor2.Source;
             HasSelectBaseFactor3.Source = m_parent.HasSelectBaseFactor3.Source;

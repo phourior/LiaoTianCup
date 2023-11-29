@@ -402,4 +402,10 @@
   <data name="时空战场" xml:space="preserve">
     <value>时空战场</value>
   </data>
+  <data name="FourMutatorsMode" xml:space="preserve">
+    <value>4因子</value>
+  </data>
+  <data name="SevenMutatorsMode" xml:space="preserve">
+    <value>7因子</value>
+  </data>
 </root>
