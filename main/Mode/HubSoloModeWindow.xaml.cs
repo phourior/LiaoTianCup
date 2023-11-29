@@ -1,5 +1,6 @@
 ﻿using Force.DeepCloner;
 using main.Helper;
+using main.Overview;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,10 +21,12 @@ namespace main
         public string botName = Dictionary.I18n.Lang.ResourceManager.GetString("RandomBotStrTip");
 
         //链表，存放自选因子
-        private Image hasSelectMap = new Image();
-        private List<Image> hasSelectBanFactor = new List<Image>(5);
+        private List<Image> hasSelectBase = new List<Image>(3);
+        private List<Image> hasSelectFixedFactor = new List<Image>(2);
         private List<Image> hasSelectFactor = new List<Image>();
-        private Image hasSelectCommander = new Image();
+        private List<Image> hasSelectCommander = new List<Image>(2);
+        private Image hasSelectMap = new Image();
+
 
         //初始化工具
         readonly RandomKit rk = new RandomKit();
@@ -37,7 +40,6 @@ namespace main
             InitializeComponent();
             this.DataContext = this;
         }
-
 
         //是否允许随机AI逻辑
         private bool _isRandAI;
@@ -63,7 +65,7 @@ namespace main
             }
         }
 
-        //模式选择（4因子模式,6因子模式）数据
+        //模式选择（4因子模式,7因子模式）数据
         private string _modeName = Dictionary.I18n.Lang.ResourceManager.GetString("FourMutatorsMode");
         public string modeName
         {
@@ -72,18 +74,6 @@ namespace main
             {
                 _modeName = value;
                 RaisePropertyChanged(nameof(_modeName));
-            }
-        }
-
-        //分数响应相关逻辑
-        private int _score = 0;
-        public int score
-        {
-            get { return _score; }
-            set
-            {
-                _score = value;
-                RaisePropertyChanged(nameof(score));
             }
         }
 
@@ -110,21 +100,25 @@ namespace main
         public void ResetFunc()
         {
             Warn.Text = "";
-            MapTip.Text = "";
             ModeBox.IsEnabled = true;
             RandStartBtn.IsEnabled = true;
             SetRandMapEnable(true);
+            SetBaseFactorEnable(true);
+
+            hasSelectBase.Clear();
+            BaseConfirmBtn.IsEnabled = false;
+            ClearBaseNegativeFactor();
+            ClearBaseMultiFactor();
+            FlashSelectBase();
+
+            hasSelectFixedFactor.Clear();
+            ClearFixedFactor();
 
             hasSelectFactor.Clear();
             ClearRandomFactor();
             FlashHasSelectFactor();
-            Score.Text = "0";
-            _score = 0;
 
-            hasSelectBanFactor.Clear();
-            FlashHasSelectBanFactor();
-
-            hasSelectCommander = new Image();
+            hasSelectCommander.Clear();
             clearRandomCommander();
             FlashHasSelectCommander();
 
@@ -133,12 +127,12 @@ namespace main
             FlashHasSelectMap();
 
             MapLabel.Foreground = Brushes.Black;
+            NegativeLabel.Foreground = Brushes.Black;
+            MultilineLabel.Foreground = Brushes.Black;
             FreeLabel.Foreground = Brushes.Black;
             OldCmdrLabel.Foreground = Brushes.Black;
             NewCmdrLabel.Foreground = Brushes.Black;
         }
-
-
 
         //开始随机事件响应
         private void Button_Random_Click(object sender, RoutedEventArgs e)
@@ -170,20 +164,25 @@ namespace main
         {
             hasSelectMap = new Image();
             FlashHasSelectMap();
+
+
             List<int> randNums = rk.GenerateXRandomNum(3, FileData.hubMapsInfo.Count);
             MapImg1.Source = new BitmapImage(new Uri(mapDir + FileData.hubMapsInfo[randNums[0]] + ".png", UriKind.Relative));
             MapImg2.Source = new BitmapImage(new Uri(mapDir + FileData.hubMapsInfo[randNums[1]] + ".png", UriKind.Relative));
             MapImg3.Source = new BitmapImage(new Uri(mapDir + FileData.hubMapsInfo[randNums[2]] + ".png", UriKind.Relative));
+
             MapName1.Text = Dictionary.I18n.Lang.ResourceManager.GetString(FileData.hubMapsInfo[randNums[0]]);
             MapName2.Text = Dictionary.I18n.Lang.ResourceManager.GetString(FileData.hubMapsInfo[randNums[1]]);
             MapName3.Text = Dictionary.I18n.Lang.ResourceManager.GetString(FileData.hubMapsInfo[randNums[2]]);
+
+
             MapLabel.Foreground = Brushes.Red;
         }
 
         //点击地图图片事件响应
         private void Maps_MouseDown(object sender, MouseEventArgs e)
         {
-            MapTip.Text = "";
+            Warn.Text = "";
             Image selectMap = (Image)sender;
             if (selectMap != null)
             {
@@ -193,7 +192,7 @@ namespace main
         }
 
         //取消当前选择的地图事件响应(Unused)
-        private void CancelMap_MouseDown(Object sender, RoutedEventArgs e)
+        private void CancelMap_MouseDown(object sender, RoutedEventArgs e)
         {
             Image cancelMap = (Image)sender;
             if (cancelMap != null)
@@ -229,153 +228,214 @@ namespace main
         {
             if (hasSelectMap == null || hasSelectMap.Source == null || hasSelectMap.Source.Equals(""))
             {
-                MapTip.Text = Dictionary.I18n.Lang.ResourceManager.GetString("MapWarn");
+                Warn.Text = Dictionary.I18n.Lang.ResourceManager.GetString("MapWarn");
                 return;
             }
+            MapLabel.Foreground = Brushes.Gray;
             SetRandMapEnable(false);
+            ShowFixedFactor();
+            ShowBaseNegativeFactor();
+            ShowBaseMultiFactor();
+        }
+
+        //固定因子显示
+        private void ShowFixedFactor()
+        {
+            //相对路径URI指定因子图片来源
+            List<int> randNum = rk.GenerateXRandomNum(2, FileData.hubFixedFactorInfo.Count);
+            string uri = factorDir + FileData.hubFixedFactorInfo[randNum[0]] + ".png";
+            FixedFactor1.Source = new BitmapImage(new Uri(uri, UriKind.Relative));
+
+        }
+
+        //正面因子显示
+        private void ShowBaseNegativeFactor()
+        {
+            NegativeLabel.Foreground = Brushes.Red;
+            //相对路径URI指定因子图片来源
+            NegativeFactor1.Source = new BitmapImage(new Uri(factorDir + FileData.hubNegativeFactorInfo[0] + ".png", UriKind.Relative));
+            NegativeFactor2.Source = new BitmapImage(new Uri(factorDir + FileData.hubNegativeFactorInfo[1] + ".png", UriKind.Relative));
+            NegativeFactor3.Source = new BitmapImage(new Uri(factorDir + FileData.hubNegativeFactorInfo[2] + ".png", UriKind.Relative));
+            NegativeFactor4.Source = new BitmapImage(new Uri(factorDir + FileData.hubNegativeFactorInfo[3] + ".png", UriKind.Relative));
+            NegativeFactor5.Source = new BitmapImage(new Uri(factorDir + FileData.hubNegativeFactorInfo[4] + ".png", UriKind.Relative));
+            NegativeFactor6.Source = new BitmapImage(new Uri(factorDir + FileData.hubNegativeFactorInfo[5] + ".png", UriKind.Relative));
+            NegativeFactor7.Source = new BitmapImage(new Uri(factorDir + FileData.hubNegativeFactorInfo[6] + ".png", UriKind.Relative));
+            NegativeFactor8.Source = new BitmapImage(new Uri(factorDir + FileData.hubNegativeFactorInfo[7] + ".png", UriKind.Relative));
+            NegativeFactor9.Source = new BitmapImage(new Uri(factorDir + FileData.hubNegativeFactorInfo[8] + ".png", UriKind.Relative));
+            NegativeFactor10.Source = new BitmapImage(new Uri(factorDir + FileData.hubNegativeFactorInfo[9] + ".png", UriKind.Relative));
+            NegativeFactor11.Source = new BitmapImage(new Uri(factorDir + FileData.hubNegativeFactorInfo[10] + ".png", UriKind.Relative));
+            NegativeFactor12.Source = new BitmapImage(new Uri(factorDir + FileData.hubNegativeFactorInfo[11] + ".png", UriKind.Relative));
+
+        }
+
+        //多线因子显示
+        private void ShowBaseMultiFactor()
+        {
+            MultilineLabel.Foreground = Brushes.Red;
+            MultiFactor1.Source = new BitmapImage(new Uri(factorDir + FileData.hubMultiFactorInfo[0] + ".png", UriKind.Relative));
+            MultiFactor2.Source = new BitmapImage(new Uri(factorDir + FileData.hubMultiFactorInfo[1] + ".png", UriKind.Relative));
+            MultiFactor3.Source = new BitmapImage(new Uri(factorDir + FileData.hubMultiFactorInfo[2] + ".png", UriKind.Relative));
+            MultiFactor4.Source = new BitmapImage(new Uri(factorDir + FileData.hubMultiFactorInfo[3] + ".png", UriKind.Relative));
+            MultiFactor5.Source = new BitmapImage(new Uri(factorDir + FileData.hubMultiFactorInfo[4] + ".png", UriKind.Relative));
+
+        }
+
+        //点击基础因子(正面和多面)图片事件响应
+        private void Base_MouseDown(object sender, MouseEventArgs e)
+        {
+            Warn.Text = "";
+            Image selectBase = (Image)sender;
+            if (selectBase != null)
+            {
+                if ((FixedFactor1.Source as BitmapImage).UriSource.ToString().Equals((selectBase.Source as BitmapImage).UriSource.ToString()))
+                {
+                    return;
+                }
+
+                if (FixedFactor2.Source != null)
+                {
+                    if ((FixedFactor2.Source as BitmapImage).UriSource.ToString().Equals((selectBase.Source as BitmapImage).UriSource.ToString()))
+                    {
+                        return;
+                    }
+                }
+
+                if ((_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FourMutatorsMode"))
+                    )
+                    && hasSelectBase != null
+                    && !hasSelectBase.Contains(selectBase))
+                {
+                    if (hasSelectBase.Count < 1)
+                    {
+                        hasSelectBase.Add(selectBase);
+                    }
+                }
+
+                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SevenMutatorsMode")) && hasSelectBase != null && !hasSelectBase.Contains(selectBase))
+                {
+                    if (hasSelectBase.Count < 2)
+                    {
+                        hasSelectBase.Add(selectBase);
+                    }
+                }
+            }
+            FlashSelectBase();
+        }
+
+        //取消当前选择的基础因子事件响应
+        private void CancelBase_MouseDown(Object sender, RoutedEventArgs e)
+        {
+            Image cancelBase = (Image)sender;
+            if (cancelBase != null)
+            {
+                for (int i = 0; i < hasSelectBase.Count; i++)
+                {
+                    if (hasSelectBase[i] != null
+                        && hasSelectBase[i].Source.ToString().Equals(cancelBase.Source.ToString()))
+                    {
+                        hasSelectBase.RemoveAt(i);
+                    }
+                }
+            }
+            else { return; }
+            FlashSelectBase();
+        }
+
+        //确认基础因子按钮逻辑响应
+        private void Button_BaseConfirm_Click(Object sender, RoutedEventArgs e)
+        {
+            Warn.Text = "";
+            if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FourMutatorsMode")) && hasSelectBase.Count < 1)
+            {
+                Warn.Text = Dictionary.I18n.Lang.ResourceManager.GetString("BaseMutatorsWarn");
+                return;
+            }
+            if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SevenMutatorsMode")) && hasSelectBase.Count < 2)
+            {
+                Warn.Text = Dictionary.I18n.Lang.ResourceManager.GetString("BaseMutatorsWarn");
+                return;
+            }
+            NegativeLabel.Foreground = Brushes.Gray;
+            MultilineLabel.Foreground = Brushes.Gray;
+
+            SetBaseFactorEnable(false);
             ShowRandomFactor();
             RandomCommanderInfo();
-
-            MapLabel.Foreground = Brushes.Gray;
-            FreeLabel.Foreground = Brushes.Red;
             OldCmdrLabel.Foreground = Brushes.Red;
             NewCmdrLabel.Foreground = Brushes.Red;
+            FreeLabel.Foreground = Brushes.Red;
         }
 
-        //显示最多10个随机选择因子
+        //刷新已选基础因子事件
+        private void FlashSelectBase()
+        {
+            if (hasSelectBase != null)
+            {
+                HasSelectBaseFactor1.Source = hasSelectBase.Count < 1 ? null : hasSelectBase[0].Source;
+                HasSelectBaseFactor2.Source = hasSelectBase.Count < 2 ? null : hasSelectBase[1].Source;
+                HasSelectBaseFactor3.Source = hasSelectBase.Count < 3 ? null : hasSelectBase[2].Source;
+            }
+        }
+
+
+        //显示最多8个随机选择因子
         private void ShowRandomFactor()
         {
-            var factorListClone = FileData.hubFactorCostList.DeepClone();
-
-            if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FourMutatorsMode")))
+            var factorListClone = FileData.hubFactorList.DeepClone();
+            for (int i = 0; i < hasSelectBase.Count; i++)
             {
-                for (int i = 0; i < factorListClone.Count; i++)
-                {
-                    // 不出现cost大于6的因子
-                    if (Convert.ToInt32(factorListClone[i][2]) > 6)
-                    {
-                        factorListClone.RemoveAt(i);
-                        i--;
-                    }
-                }
-                List<int> randNum = rk.GenerateXRandomNum(6, factorListClone.Count);
-
-                //相对路径URI显示6个因子的图片
-                SelectFactor1.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum[0]][1] + ".png", UriKind.Relative));
-                SelectFactor2.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum[1]][1] + ".png", UriKind.Relative));
-                SelectFactor3.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum[2]][1] + ".png", UriKind.Relative));
-                SelectFactor4.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum[3]][1] + ".png", UriKind.Relative));
-                SelectFactor5.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum[4]][1] + ".png", UriKind.Relative));
-                SelectFactor6.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum[5]][1] + ".png", UriKind.Relative));
-            }
-            else if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SixMutatorsMode")))
-            {
-                //3% 18% 79%
-                SortedSet<int> randNum = new SortedSet<int>();
-                while (randNum.Count < 10)
-                {
-                    int num = rk.GenerateRandomFromNumToNum(1, 101);
-                    if (num <= 3)
-                    {
-                        randNum.Add(rk.GenerateRandomFromNumToNum(0, 8));
-                        continue;
-                    }
-                    if (num <= 19)
-                    {
-                        randNum.Add(rk.GenerateRandomFromNumToNum(8, 25));
-                        continue;
-                    }
-                    randNum.Add(rk.GenerateRandomFromNumToNum(25, 63));
-                }
-
-                SelectFactor1.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum.ElementAt(0)][1] + ".png", UriKind.Relative));
-                SelectFactor2.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum.ElementAt(1)][1] + ".png", UriKind.Relative));
-                SelectFactor3.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum.ElementAt(2)][1] + ".png", UriKind.Relative));
-                SelectFactor4.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum.ElementAt(3)][1] + ".png", UriKind.Relative));
-                SelectFactor5.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum.ElementAt(4)][1] + ".png", UriKind.Relative));
-                SelectFactor6.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum.ElementAt(5)][1] + ".png", UriKind.Relative));
-                SelectFactor7.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum.ElementAt(6)][1] + ".png", UriKind.Relative));
-                SelectFactor8.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum.ElementAt(7)][1] + ".png", UriKind.Relative));
-                SelectFactor9.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum.ElementAt(8)][1] + ".png", UriKind.Relative));
-                SelectFactor10.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum.ElementAt(9)][1] + ".png", UriKind.Relative));
-            }
-        }
-
-
-        //因子总分数计算
-        private void CalFactorScore(Image img)
-        {
-
-            var selectName = (img.Source as BitmapImage).UriSource.ToString()
+                // 去除在前面已经选择过的因子
+                var currentNegativeFactor = (hasSelectBase[i].Source as BitmapImage).UriSource.ToString()
                         .Replace("/main;component/Resources/factor/", "").Replace(".png", "");
+                factorListClone.Remove(currentNegativeFactor);
+            }
 
-            for (int i = 0; i < FileData.hubFactorCostList.Count; i++)
+            List<int> randNum = rk.GenerateXRandomNum(8, factorListClone.Count);
+
+            //相对路径URI显示6-8个因子的图片
+            SelectFactor1.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum[0]] + ".png", UriKind.Relative));
+            SelectFactor2.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum[1]] + ".png", UriKind.Relative));
+            SelectFactor3.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum[2]] + ".png", UriKind.Relative));
+            SelectFactor4.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum[3]] + ".png", UriKind.Relative));
+            SelectFactor5.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum[4]] + ".png", UriKind.Relative));
+            
+
+            if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SevenMutatorsMode")))
             {
-                if (FileData.hubFactorCostList[i][1].Equals(selectName))
-                {
-                    _score += Convert.ToInt32(FileData.hubFactorCostList[i][2]);
-                    Score.Text = _score.ToString();
-                    break;
-                }
+                SelectFactor6.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum[5]] + ".png", UriKind.Relative));
+                SelectFactor7.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum[6]] + ".png", UriKind.Relative));
+                SelectFactor8.Source = new BitmapImage(new Uri(factorDir + factorListClone[randNum[7]] + ".png", UriKind.Relative));
             }
         }
 
-        //左键点击自选因子事件响应
+        //点击自选因子事件响应
         private void Factor_MouseDown(object sender, RoutedEventArgs e)
         {
             Warn.Text = "";
             Image selectFactor = (Image)sender;
             if (selectFactor != null)
             {
-                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FourMutatorsMode")) && hasSelectFactor != null && !hasSelectFactor.Contains(selectFactor) && !hasSelectBanFactor.Contains(selectFactor))
+                if ((_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FourMutatorsMode"))
+                    )
+                    && hasSelectFactor != null && !hasSelectFactor.Contains(selectFactor))
                 {
-                    if (hasSelectFactor.Count < 3)
+                    if (hasSelectFactor.Count < 2)
                     {
                         hasSelectFactor.Add(selectFactor);
-                        CalFactorScore(selectFactor);
                     }
 
                 }
 
-                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SixMutatorsMode")) && hasSelectFactor != null && !hasSelectFactor.Contains(selectFactor) && !hasSelectBanFactor.Contains(selectFactor))
+                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SevenMutatorsMode")) && hasSelectFactor != null && !hasSelectFactor.Contains(selectFactor))
                 {
-                    if (hasSelectFactor.Count < 5)
+                    if (hasSelectFactor.Count < 4)
                     {
                         hasSelectFactor.Add(selectFactor);
-                        CalFactorScore(selectFactor);
                     }
 
                 }
             }
             FlashHasSelectFactor();
-        }
-
-        //右键点击自选因子以ban掉
-        private void Ban_MouseDown(object sender, RoutedEventArgs e)
-        {
-            Warn.Text = "";
-            Image selectFactor = (Image)sender;
-            if (selectFactor != null)
-            {
-                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FourMutatorsMode")) && hasSelectBanFactor != null && !hasSelectBanFactor.Contains(selectFactor) && !hasSelectFactor.Contains(selectFactor))
-                {
-                    if (hasSelectBanFactor.Count < 3)
-                    {
-                        hasSelectBanFactor.Add(selectFactor);
-                    }
-
-                }
-
-                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SixMutatorsMode")) && hasSelectBanFactor != null && !hasSelectBanFactor.Contains(selectFactor) && !hasSelectFactor.Contains(selectFactor))
-                {
-                    if (hasSelectBanFactor.Count < 5)
-                    {
-                        hasSelectBanFactor.Add(selectFactor);
-                    }
-
-                }
-            }
-            FlashHasSelectBanFactor();
         }
 
         //点击已选择的自选因子 取消事件响应
@@ -392,44 +452,10 @@ namespace main
                         hasSelectFactor.RemoveAt(i);
                     }
                 }
-
-                //因子总分数计算
-                var selectName = (cancelFactor.Source as BitmapImage).UriSource.ToString()
-                            .Replace("/main;component/Resources/factor/", "").Replace(".png", "");
-
-                for (int i = 0; i < FileData.hubFactorCostList.Count; i++)
-                {
-                    if (FileData.hubFactorCostList[i][1].Equals(selectName))
-                    {
-                        _score -= Convert.ToInt32(FileData.hubFactorCostList[i][2]);
-                        Score.Text = _score.ToString();
-                        break;
-                    }
-                }
             }
             else { return; }
             FlashHasSelectFactor();
         }
-
-        //点击已选择的Ban选因子 取消事件响应
-        private void CancelBan_MouseDown(object sender, RoutedEventArgs e)
-        {
-            Image cancelFactor = (Image)sender;
-            if (cancelFactor != null)
-            {
-                for (int i = 0; i < hasSelectBanFactor.Count; i++)
-                {
-                    if (hasSelectBanFactor[i] != null
-                        && hasSelectBanFactor[i].Source.ToString().Equals(cancelFactor.Source.ToString()))
-                    {
-                        hasSelectBanFactor.RemoveAt(i);
-                    }
-                }
-            }
-            else { return; }
-            FlashHasSelectBanFactor();
-        }
-
 
         //刷新已选择的因子
         private void FlashHasSelectFactor()
@@ -438,29 +464,12 @@ namespace main
             {
                 HasSelectFactor1.Source = hasSelectFactor.Count < 1 ? null : hasSelectFactor[0].Source;
                 HasSelectFactor2.Source = hasSelectFactor.Count < 2 ? null : hasSelectFactor[1].Source;
-                HasSelectFactor3.Source = hasSelectFactor.Count < 3 ? null : hasSelectFactor[2].Source;
+                
 
-                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SixMutatorsMode")))
+                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SevenMutatorsMode")))
                 {
+                    HasSelectFactor3.Source = hasSelectFactor.Count < 3 ? null : hasSelectFactor[2].Source;
                     HasSelectFactor4.Source = hasSelectFactor.Count < 4 ? null : hasSelectFactor[3].Source;
-                    HasSelectFactor5.Source = hasSelectFactor.Count < 5 ? null : hasSelectFactor[4].Source;
-                }
-            }
-        }
-
-        //刷新已选择的BAN因子
-        private void FlashHasSelectBanFactor()
-        {
-            if (hasSelectBanFactor != null)
-            {
-                HasSelectBanFactor1.Source = hasSelectBanFactor.Count < 1 ? null : hasSelectBanFactor[0].Source;
-                HasSelectBanFactor2.Source = hasSelectBanFactor.Count < 2 ? null : hasSelectBanFactor[1].Source;
-                HasSelectBanFactor3.Source = hasSelectBanFactor.Count < 3 ? null : hasSelectBanFactor[2].Source;
-
-                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SixMutatorsMode")))
-                {
-                    HasSelectBanFactor4.Source = hasSelectBanFactor.Count < 4 ? null : hasSelectBanFactor[3].Source;
-                    HasSelectBanFactor5.Source = hasSelectBanFactor.Count < 5 ? null : hasSelectBanFactor[4].Source;
                 }
             }
         }
@@ -470,17 +479,21 @@ namespace main
         //随机先出和后出指挥官处理逻辑
         private void RandomCommanderInfo()
         {
-            List<int> beforeRandNum = rk.GenerateXRandomNum(4, FileData.hubBeforeCommanderInfo.Count);
-            List<int> afterRandNum = rk.GenerateXRandomNum(2, FileData.hubAfterCommanderInfo.Count);
+            List<int> beforeRandNum = rk.GenerateXRandomNum(6, FileData.hubBeforeCommanderInfo.Count);
+            List<int> afterRandNum = rk.GenerateXRandomNum(4, FileData.hubAfterCommanderInfo.Count);
 
             //相对路径URI指定指挥官图片来源
             BeforeCommander1.Source = new BitmapImage(new Uri(commanderDir + FileData.hubBeforeCommanderInfo[beforeRandNum[0]] + ".png", UriKind.Relative));
             BeforeCommander2.Source = new BitmapImage(new Uri(commanderDir + FileData.hubBeforeCommanderInfo[beforeRandNum[1]] + ".png", UriKind.Relative));
             BeforeCommander3.Source = new BitmapImage(new Uri(commanderDir + FileData.hubBeforeCommanderInfo[beforeRandNum[2]] + ".png", UriKind.Relative));
             BeforeCommander4.Source = new BitmapImage(new Uri(commanderDir + FileData.hubBeforeCommanderInfo[beforeRandNum[3]] + ".png", UriKind.Relative));
+            BeforeCommander5.Source = new BitmapImage(new Uri(commanderDir + FileData.hubBeforeCommanderInfo[beforeRandNum[4]] + ".png", UriKind.Relative));
+            BeforeCommander6.Source = new BitmapImage(new Uri(commanderDir + FileData.hubBeforeCommanderInfo[beforeRandNum[5]] + ".png", UriKind.Relative));
 
             AfterCommander1.Source = new BitmapImage(new Uri(commanderDir + FileData.hubAfterCommanderInfo[afterRandNum[0]] + ".png", UriKind.Relative));
             AfterCommander2.Source = new BitmapImage(new Uri(commanderDir + FileData.hubAfterCommanderInfo[afterRandNum[1]] + ".png", UriKind.Relative));
+            AfterCommander3.Source = new BitmapImage(new Uri(commanderDir + FileData.hubAfterCommanderInfo[afterRandNum[2]] + ".png", UriKind.Relative));
+            AfterCommander4.Source = new BitmapImage(new Uri(commanderDir + FileData.hubAfterCommanderInfo[afterRandNum[3]] + ".png", UriKind.Relative));
         }
 
         //点击自选指挥官事件响应
@@ -488,9 +501,9 @@ namespace main
         {
             Warn.Text = "";
             Image selectCommander = (Image)sender;
-            if (selectCommander != null)
+            if (selectCommander != null && hasSelectCommander.Count < 1)
             {
-                hasSelectCommander = selectCommander;
+                hasSelectCommander.Add(selectCommander);
             }
             FlashHasSelectCommander();
         }
@@ -501,7 +514,14 @@ namespace main
             Image cancelCommander = (Image)sender;
             if (cancelCommander != null)
             {
-                hasSelectCommander = new Image();
+                for (int i = 0; i < hasSelectCommander.Count; i++)
+                {
+                    if (hasSelectCommander[i] != null
+                        && hasSelectCommander[i].Source.ToString().Equals(cancelCommander.Source.ToString()))
+                    {
+                        hasSelectCommander.RemoveAt(i);
+                    }
+                }
             }
             else { return; }
             FlashHasSelectCommander();
@@ -512,10 +532,10 @@ namespace main
         {
             if (hasSelectCommander != null)
             {
-                HasSelectCommander.Source = hasSelectCommander.Source;
+                HasSelectCommander1.Source = hasSelectCommander.Count < 1 ? null : hasSelectCommander[0].Source;
+                HasSelectCommander2.Source = hasSelectCommander.Count < 2 ? null : hasSelectCommander[1].Source;
             }
         }
-
 
 
         //确认按钮事件响应
@@ -524,28 +544,28 @@ namespace main
             botName = IsRandAIFunc();
             if (hasSelectFactor != null)
             {
-                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FourMutatorsMode")) && hasSelectFactor != null && hasSelectFactor.Count != 3)
+                if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("FourMutatorsMode")) && hasSelectFactor != null && hasSelectFactor.Count != 2)
                 {
                     Warn.Text = Dictionary.I18n.Lang.ResourceManager.GetString("FreeMutatorsWarn1");
                     return;
                 }
-                else if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SixMutatorsMode")) && hasSelectFactor != null && hasSelectFactor.Count != 5)
+                else if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("SevenMutatorsMode")) && hasSelectFactor != null && hasSelectFactor.Count != 4)
                 {
                     Warn.Text = Dictionary.I18n.Lang.ResourceManager.GetString("FreeMutatorsWarn2");
                     return;
                 }
-
             }
 
-            if (hasSelectCommander == null || hasSelectCommander.Source == null || hasSelectCommander.Source.Equals(""))
+            if (hasSelectCommander == null)
             {
-                Warn.Text = Dictionary.I18n.Lang.ResourceManager.GetString("CommanderWarn2");
+                Warn.Text = Dictionary.I18n.Lang.ResourceManager.GetString("CommanderWarnHub");
                 return;
             }
             else
             {
                 Warn.Text = "";
             }
+
             this.NavigationService.Navigate(new ShowHubSoloDetail(this));
         }
 
@@ -560,12 +580,93 @@ namespace main
             HasSelectMap.IsEnabled = enable;
             RandStartBtn.IsEnabled = enable;
             MapConfirmBtn.IsEnabled = enable;
+            BaseConfirmBtn.IsEnabled = true;
+        }
+
+        //基础因子相关控件的可用性设置
+        private void SetBaseFactorEnable(bool enable)
+        {
+
+            NegativeFactor1.IsEnabled = enable;
+            NegativeFactor2.IsEnabled = enable;
+            NegativeFactor3.IsEnabled = enable;
+            NegativeFactor4.IsEnabled = enable;
+            NegativeFactor5.IsEnabled = enable;
+            NegativeFactor6.IsEnabled = enable;
+            NegativeFactor7.IsEnabled = enable;
+            NegativeFactor8.IsEnabled = enable;
+            NegativeFactor9.IsEnabled = enable;
+            NegativeFactor10.IsEnabled = enable;
+            NegativeFactor11.IsEnabled = enable;
+            NegativeFactor12.IsEnabled = enable;
+            NegativeFactor13.IsEnabled = enable;
+            NegativeFactor14.IsEnabled = enable;
+
+            MultiFactor1.IsEnabled = enable;
+            MultiFactor2.IsEnabled = enable;
+            MultiFactor3.IsEnabled = enable;
+            MultiFactor4.IsEnabled = enable;
+            MultiFactor5.IsEnabled = enable;
+            MultiFactor6.IsEnabled = enable;
+            MultiFactor7.IsEnabled = enable;
+            MultiFactor8.IsEnabled = enable;
+            MultiFactor9.IsEnabled = enable;
+
+            HasSelectBaseFactor1.IsEnabled = enable;
+            HasSelectBaseFactor2.IsEnabled = enable;
+            HasSelectBaseFactor3.IsEnabled = enable;
+
+            BaseConfirmBtn.IsEnabled = enable;
+        }
+
+        //固定因子清除
+        private void ClearFixedFactor()
+        {
+            //相对路径URI指定因子图片来源
+            FixedFactor1.Source = new BitmapImage();
+            FixedFactor2.Source = new BitmapImage();
+        }
+
+        //正面因子清除
+        private void ClearBaseNegativeFactor()
+        {
+            //相对路径URI指定因子图片来源
+            NegativeFactor1.Source = new BitmapImage();
+            NegativeFactor2.Source = new BitmapImage();
+            NegativeFactor3.Source = new BitmapImage();
+            NegativeFactor4.Source = new BitmapImage();
+            NegativeFactor5.Source = new BitmapImage();
+            NegativeFactor6.Source = new BitmapImage();
+            NegativeFactor7.Source = new BitmapImage();
+            NegativeFactor8.Source = new BitmapImage();
+            NegativeFactor9.Source = new BitmapImage();
+            NegativeFactor10.Source = new BitmapImage();
+            NegativeFactor11.Source = new BitmapImage();
+            NegativeFactor12.Source = new BitmapImage();
+            NegativeFactor13.Source = new BitmapImage();
+            NegativeFactor14.Source = new BitmapImage();
+            NegativeFactor15.Source = new BitmapImage();
+        }
+
+        //多线因子清除
+        private void ClearBaseMultiFactor()
+        {
+            //相对路径URI指定因子图片来源
+            MultiFactor1.Source = new BitmapImage();
+            MultiFactor2.Source = new BitmapImage();
+            MultiFactor3.Source = new BitmapImage();
+            MultiFactor4.Source = new BitmapImage();
+            MultiFactor5.Source = new BitmapImage();
+            MultiFactor6.Source = new BitmapImage();
+            MultiFactor7.Source = new BitmapImage();
+            MultiFactor8.Source = new BitmapImage();
+            MultiFactor9.Source = new BitmapImage();
         }
 
         //自选因子清除
         private void ClearRandomFactor()
         {
-            //相对路径URI显示10个因子的图片
+            //相对路径URI显示5个因子的图片
             SelectFactor1.Source = new BitmapImage();
             SelectFactor2.Source = new BitmapImage();
             SelectFactor3.Source = new BitmapImage();
@@ -574,8 +675,6 @@ namespace main
             SelectFactor6.Source = new BitmapImage();
             SelectFactor7.Source = new BitmapImage();
             SelectFactor8.Source = new BitmapImage();
-            SelectFactor9.Source = new BitmapImage();
-            SelectFactor10.Source = new BitmapImage();
         }
 
         //随机先出和后出指挥官清除显示
@@ -586,10 +685,18 @@ namespace main
             BeforeCommander2.Source = new BitmapImage();
             BeforeCommander3.Source = new BitmapImage();
             BeforeCommander4.Source = new BitmapImage();
+            BeforeCommander5.Source = new BitmapImage();
+            BeforeCommander6.Source = new BitmapImage();
 
             AfterCommander1.Source = new BitmapImage();
             AfterCommander2.Source = new BitmapImage();
+            AfterCommander3.Source = new BitmapImage();
+            AfterCommander4.Source = new BitmapImage();
         }
+
+
+
+
 
         //实现绑定响应接口
         private void RaisePropertyChanged(string propertyName)

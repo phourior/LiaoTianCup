@@ -196,7 +196,7 @@
     <value>未选择指挥官</value>
   </data>
   <data name="MainWindowTitle" xml:space="preserve">
-    <value>练习软件 v0.1.0 - Maintained by phourior</value>
+    <value>练习软件 v0.2.0 - Programmed by B1ackSand</value>
   </data>
   <data name="ThreeMutatorsMode" xml:space="preserve">
     <value>3因子</value>
@@ -391,7 +391,7 @@
     <value>重返亡灵之城</value>
   </data>
   <data name="FreeMutatorsWarn4" xml:space="preserve">
-    <value>6因子模式需要至少自选4个因子</value>
+    <value>6因子模式需要至少自选3个因子</value>
   </data>
   <data name="HubSoloMode" xml:space="preserve">
     <value>枢纽单刷</value>

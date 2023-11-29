@@ -31,14 +31,20 @@ namespace main
             HasSelectMap.Source = m_parent.HasSelectMap.Source;
             MapTip.Text = m_parent.MapTip.Text;
 
+            FixedMutator1.Source = m_parent.FixedFactor1.Source;
+
+            HasSelectBaseFactor1.Source = m_parent.HasSelectBaseFactor1.Source;
+            HasSelectBaseFactor2.Source = m_parent.HasSelectBaseFactor2.Source;
+
+
             HasSelectFactor1.Source = m_parent.HasSelectFactor1.Source;
             HasSelectFactor2.Source = m_parent.HasSelectFactor2.Source;
             HasSelectFactor3.Source = m_parent.HasSelectFactor3.Source;
             HasSelectFactor4.Source = m_parent.HasSelectFactor4.Source;
-            HasSelectFactor5.Source = m_parent.HasSelectFactor5.Source;
-            Score.Text = m_parent.Score.Text;
 
-            HasSelectCommander.Source = m_parent.HasSelectCommander.Source;
+
+            HasSelectCommander1.Source = m_parent.HasSelectCommander1.Source;
+
 
             AIBox.Text = m_parent.botName;
         }

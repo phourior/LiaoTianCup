@@ -17,17 +17,20 @@
         <Style BasedOn="{StaticResource BaseTextBox}" TargetType="TextBox" />
     </Page.Resources>
 
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80" />
-            <RowDefinition Height="150" />
-            <RowDefinition Height="220" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="140" />
+            <RowDefinition Height="240" />
+            <RowDefinition Height="160" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="120" />
             <ColumnDefinition Width="120" />
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
@@ -66,7 +69,7 @@
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Column="3">
+        <Grid Grid.Column="4">
             <Button
                 x:Name="RandStartBtn"
                 Margin="0,0,20,0"
@@ -74,19 +77,20 @@
                 Content="{Binding [RandomStartBtn], Source={x:Static local:LanguageManager.Instance}}" />
         </Grid>
 
-        <Grid Grid.Column="4">
+        <Grid Grid.Column="5">
             <Button
                 Margin="0,0,20,0"
                 Click="Button_Reset_Click"
                 Content="{Binding [ResetBtn], Source={x:Static local:LanguageManager.Instance}}" />
         </Grid>
 
-        <Grid Grid.Column="5">
+        <Grid Grid.Column="6">
             <Button
                 Margin="0,0,20,0"
                 Click="Button_BackMain_Click"
                 Content="{Binding [BackMenuBtn], Source={x:Static local:LanguageManager.Instance}}" />
         </Grid>
+
 
         <Grid Grid.Row="1">
             <Label x:Name="MapLabel" Content="{Binding [RandMap], Source={x:Static local:LanguageManager.Instance}}" />
@@ -95,7 +99,7 @@
         <Grid
             Grid.Row="1"
             Grid.Column="1"
-            Grid.ColumnSpan="5">
+            Grid.ColumnSpan="6">
             <StackPanel Orientation="Horizontal">
                 <StackPanel.Resources>
                     <Style BasedOn="{StaticResource MapImg}" TargetType="Image">
@@ -135,158 +139,202 @@
         <Grid Grid.Row="2" Grid.ColumnSpan="2">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="2*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Grid Row="0">
-                    <Label x:Name="FreeLabel" Content="{Binding [FreeMutator], Source={x:Static local:LanguageManager.Instance}}" />
+                <Grid Grid.Row="0">
+                    <Label x:Name="NegativeLabel" Content="{Binding [NegativeMutators], Source={x:Static local:LanguageManager.Instance}}" />
                 </Grid>
 
                 <Grid Grid.Row="1">
-                    <Label x:Name="OldCmdrLabel" Content="{Binding [OldCommander], Source={x:Static local:LanguageManager.Instance}}" />
+                    <Label x:Name="MultilineLabel" Content="{Binding [MultilineMutators], Source={x:Static local:LanguageManager.Instance}}" />
                 </Grid>
             </Grid>
         </Grid>
-
         <Grid
             Grid.Row="2"
             Grid.Column="2"
             Grid.ColumnSpan="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+            <Grid.Resources>
+                <Style BasedOn="{StaticResource ClickableImg}" TargetType="Image">
+                    <EventSetter Event="MouseLeftButtonDown" Handler="Base_MouseDown" />
+                </Style>
+            </Grid.Resources>
 
-                <Grid Grid.Row="0" Grid.ColumnSpan="3">
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel.Resources>
-                            <Style BasedOn="{StaticResource ClickableImg}" TargetType="Image">
-                                <EventSetter Event="MouseLeftButtonDown" Handler="Factor_MouseDown" />
-                                <EventSetter Event="MouseRightButtonDown" Handler="Ban_MouseDown" />
-                            </Style>
-                        </StackPanel.Resources>
-                        <Image x:Name="SelectFactor1" Margin="0,0,0,0" />
-                        <Image x:Name="SelectFactor2" />
-                        <Image x:Name="SelectFactor3" />
-                        <Image x:Name="SelectFactor4" />
-                        <Image x:Name="SelectFactor5" />
-                        <Image x:Name="SelectFactor6" />
-                        <Image x:Name="SelectFactor7" />
-                        <Image x:Name="SelectFactor8" />
-                        <Image x:Name="SelectFactor9" />
-                        <Image x:Name="SelectFactor10" />
-                    </StackPanel>
-                </Grid>
+            <Grid
+                Grid.Row="0"
+                Margin="0,12,0,0"
+                VerticalAlignment="Top">
+                <StackPanel Orientation="Horizontal">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
-                <Grid
-                    Grid.Row="0"
-                    Grid.Column="2"
-                    Grid.ColumnSpan="2">
-                    <TextBlock
-                        Margin="0,0,20,0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        FontWeight="Bold"
-                        Foreground="Red"
-                        Text="{Binding [BanTip], Source={x:Static local:LanguageManager.Instance}}"
-                        TextAlignment="Right" />
-                </Grid>
+                        <Grid Row="0">
+                            <StackPanel Orientation="Horizontal">
+                                <Image x:Name="NegativeFactor1" Margin="0,0,0,0" />
+                                <Image x:Name="NegativeFactor2" />
+                                <Image x:Name="NegativeFactor3" />
+                                <Image x:Name="NegativeFactor4" />
+                                <Image x:Name="NegativeFactor5" />
+                            </StackPanel>
+                        </Grid>
+                        <Grid Margin="0,15,0,0" Row="1">
+                            <StackPanel Orientation="Horizontal">
+                                <Image x:Name="NegativeFactor6" Margin="0,0,0,0" />
+                                <Image x:Name="NegativeFactor7" />
+                                <Image x:Name="NegativeFactor8" />
+                                <Image x:Name="NegativeFactor9" />
+                                <Image x:Name="NegativeFactor10" />
+                                <Image x:Name="NegativeFactor11" />
+                                <Image x:Name="NegativeFactor12" />
+                                <Image x:Name="NegativeFactor13" />
+                                <Image x:Name="NegativeFactor14" />
+                                <Image x:Name="NegativeFactor15" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </StackPanel>
+            </Grid>
 
-                <Grid Grid.Row="1">
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel.Resources>
-                            <Style BasedOn="{StaticResource ClickableImg}" TargetType="Image">
-                                <EventSetter Event="MouseLeftButtonDown" Handler="Commander_MouseDown" />
-                            </Style>
-                        </StackPanel.Resources>
+            <Grid Grid.Row="1">
+                <StackPanel Orientation="Horizontal">
 
-                        <Image x:Name="BeforeCommander1" Margin="0,0,0,0" />
-                        <Image x:Name="BeforeCommander2" />
-                        <Image x:Name="BeforeCommander3" />
-                        <Image x:Name="BeforeCommander4" />
-                    </StackPanel>
-                </Grid>
-
-                <Grid ColumnSpan="2" Row="1">
-                    <Label
-                        x:Name="NewCmdrLabel"
-                        Margin="18,0,0,0"
-                        HorizontalAlignment="Right"
-                        HorizontalContentAlignment="Right"
-                        Content="{Binding [NewCommander], Source={x:Static local:LanguageManager.Instance}}" />
-                </Grid>
-
-                <Grid Grid.Row="1" Grid.Column="2">
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel.Resources>
-                            <Style BasedOn="{StaticResource ClickableImg}" TargetType="Image">
-                                <EventSetter Event="MouseLeftButtonDown" Handler="Commander_MouseDown" />
-                            </Style>
-                        </StackPanel.Resources>
-
-                        <Image x:Name="AfterCommander1" Margin="36,0,0,0" />
-                        <Image x:Name="AfterCommander2" />
-                    </StackPanel>
-                </Grid>
+                    <Image x:Name="MultiFactor1" Margin="0,0,0,0" />
+                    <Image x:Name="MultiFactor2" />
+                    <Image x:Name="MultiFactor3" />
+                    <Image x:Name="MultiFactor4" />
+                    <Image x:Name="MultiFactor5" />
+                    <Image x:Name="MultiFactor6" />
+                    <Image x:Name="MultiFactor7" />
+                    <Image x:Name="MultiFactor8" />
+                    <Image x:Name="MultiFactor9" />
+                </StackPanel>
             </Grid>
         </Grid>
+        <Grid Grid.Row="2" Grid.Column="6">
+            <Button
+                x:Name="BaseConfirmBtn"
+                Margin="0,0,20,0"
+                Click="Button_BaseConfirm_Click"
+                Content="{Binding [ConfirmBaseBtn], Source={x:Static local:LanguageManager.Instance}}"
+                IsEnabled="False" />
+        </Grid>
 
-        <Grid
-            Grid.Row="3"
-            Grid.Column="0"
-            Grid.ColumnSpan="2">
+        <Grid Grid.Row="3" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Grid>
-                <Label Content="{Binding [HasSelectMap], Source={x:Static local:LanguageManager.Instance}}" />
+            <Grid Grid.Row="0">
+                <Label x:Name="FreeLabel" Content="{Binding [FreeMutator], Source={x:Static local:LanguageManager.Instance}}" />
             </Grid>
 
             <Grid Grid.Row="1">
-                <Label Content="{Binding [HasBanMutators], Source={x:Static local:LanguageManager.Instance}}" />
+                <Label x:Name="OldCmdrLabel" Content="{Binding [OldCommander], Source={x:Static local:LanguageManager.Instance}}" />
+            </Grid>
+        </Grid>
+
+
+        <Grid
+            Grid.Row="3"
+            Grid.Column="2"
+            Grid.ColumnSpan="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel.Resources>
+                        <Style BasedOn="{StaticResource ClickableImg}" TargetType="Image">
+                            <EventSetter Event="MouseLeftButtonDown" Handler="Factor_MouseDown" />
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <Image x:Name="SelectFactor1" Margin="0,0,0,0" />
+                    <Image x:Name="SelectFactor2" />
+                    <Image x:Name="SelectFactor3" />
+                    <Image x:Name="SelectFactor4" />
+                    <Image x:Name="SelectFactor5" />
+                    <Image x:Name="SelectFactor6" />
+                    <Image x:Name="SelectFactor7" />
+                    <Image x:Name="SelectFactor8" />
+                </StackPanel>
             </Grid>
 
+            <Grid Grid.Row="1">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel.Resources>
+                        <Style BasedOn="{StaticResource ClickableImg}" TargetType="Image">
+                            <EventSetter Event="MouseLeftButtonDown" Handler="Commander_MouseDown" />
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <Image x:Name="BeforeCommander1" Margin="0,0,0,0" />
+                    <Image x:Name="BeforeCommander2" />
+                    <Image x:Name="BeforeCommander3" />
+                    <Image x:Name="BeforeCommander4" />
+                    <Image x:Name="BeforeCommander5" />
+                    <Image x:Name="BeforeCommander6" />
+                    <Label
+                        x:Name="NewCmdrLabel"
+                        Margin="18,0,0,0"
+                        Content="{Binding [NewCommander], Source={x:Static local:LanguageManager.Instance}}" />
+                    <Image x:Name="AfterCommander1" Margin="0,0,0,0" />
+                    <Image x:Name="AfterCommander2" />
+                    <Image x:Name="AfterCommander3" />
+                    <Image x:Name="AfterCommander4" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="4" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Label Content="{Binding [HasSelectMap], Source={x:Static local:LanguageManager.Instance}}" />
+            </Grid>
+            <Grid Grid.Row="1">
+                <Label Content="{Binding [HasSelectBaseMutators], Source={x:Static local:LanguageManager.Instance}}" />
+            </Grid>
             <Grid Grid.Row="2">
-                <Label Content="{Binding [HasSelectFreeMutators], Source={x:Static local:LanguageManager.Instance}}" />
-            </Grid>
-
-            <Grid Grid.Row="3">
                 <Label Content="{Binding [HasSelectCommanders], Source={x:Static local:LanguageManager.Instance}}" />
             </Grid>
         </Grid>
 
         <Grid
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="2"
-            Grid.ColumnSpan="4">
+            Grid.ColumnSpan="5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="100" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="0" Grid.ColumnSpan="2">
+            <Grid Grid.Row="0">
+                <Line
+                    Stroke="Gray"
+                    StrokeThickness="6"
+                    X1="0"
+                    X2="1180"
+                    Y1="0"
+                    Y2="0" />
                 <StackPanel Orientation="Horizontal">
                     <Image x:Name="HasSelectMap" Style="{StaticResource MapImg}" />
                     <TextBlock
@@ -298,21 +346,56 @@
                         Foreground="Red"
                         Text="" />
                 </StackPanel>
+                <Grid Grid.Row="0" Margin="450,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Label x:Name="FixedMutator" Content="固定因子：" />
+                        <Image x:Name="FixedFactor1" />
+                        <Image x:Name="FixedFactor2" />
+                    </StackPanel>
+                </Grid>
             </Grid>
 
             <Grid Grid.Row="1">
                 <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style BasedOn="{StaticResource ClickableImg}" TargetType="Image">
+                                <EventSetter Event="MouseLeftButtonDown" Handler="CancelBase_MouseDown" />
+                            </Style>
+                        </StackPanel.Resources>
+
+                        <Image x:Name="HasSelectBaseFactor1" Margin="0,0,0,0" />
+                        <Image x:Name="HasSelectBaseFactor2" />
+                        <Image x:Name="HasSelectBaseFactor3" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style BasedOn="{StaticResource ClickableImg}" TargetType="Image">
+                                <EventSetter Event="MouseLeftButtonDown" Handler="CancelFactor_MouseDown" />
+                            </Style>
+                        </StackPanel.Resources>
+
+                        <Label Margin="18,0,0,0" Content="{Binding [HasSelectFreeMutators], Source={x:Static local:LanguageManager.Instance}}" />
+                        <Image x:Name="HasSelectFactor1" Margin="0,0,0,0" />
+                        <Image x:Name="HasSelectFactor2" />
+                        <Image x:Name="HasSelectFactor3" />
+                        <Image x:Name="HasSelectFactor4" />
+                        <Image x:Name="HasSelectFactor5" />
+                    </StackPanel>
+
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <StackPanel Orientation="Horizontal">
                     <StackPanel.Resources>
                         <Style BasedOn="{StaticResource ClickableImg}" TargetType="Image">
-                            <EventSetter Event="MouseLeftButtonDown" Handler="CancelBan_MouseDown" />
+                            <EventSetter Event="MouseLeftButtonDown" Handler="CancelCommander_MouseDown" />
                         </Style>
                     </StackPanel.Resources>
-
-                    <Image x:Name="HasSelectBanFactor1" Margin="0,0,0,0" />
-                    <Image x:Name="HasSelectBanFactor2" />
-                    <Image x:Name="HasSelectBanFactor3" />
-                    <Image x:Name="HasSelectBanFactor4" />
-                    <Image x:Name="HasSelectBanFactor5" />
+                    <Image x:Name="HasSelectCommander1" Margin="0,0,0,0" />
+                    <Image x:Name="HasSelectCommander2" />
                     <TextBlock
                         x:Name="Warn"
                         Margin="50,0,0,0"
@@ -322,66 +405,16 @@
                         Foreground="Red"
                         Text="" />
                 </StackPanel>
-            </Grid>
-
-            <Grid Grid.Row="2">
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel.Resources>
-                        <Style BasedOn="{StaticResource ClickableImg}" TargetType="Image">
-                            <EventSetter Event="MouseLeftButtonDown" Handler="CancelFactor_MouseDown" />
-                        </Style>
-                    </StackPanel.Resources>
-
-                    <Image x:Name="HasSelectFactor1" Margin="0,0,0,0" />
-                    <Image x:Name="HasSelectFactor2" />
-                    <Image x:Name="HasSelectFactor3" />
-                    <Image x:Name="HasSelectFactor4" />
-                    <Image x:Name="HasSelectFactor5" />
-                </StackPanel>
-            </Grid>
-
-            <Grid
-                Grid.Row="2"
-                Grid.Column="2"
-                Grid.ColumnSpan="2">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock
-                        Margin="20,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        FontWeight="Bold"
-                        Foreground="Red"
-                        Text="{Binding [MutatorsCost], Source={x:Static local:LanguageManager.Instance}}" />
-                    <TextBlock
-                        x:Name="Score"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        FontWeight="Bold"
-                        Foreground="Red"
-                        Text="{Binding Path=score}" />
-                </StackPanel>
-            </Grid>
-
-            <Grid Grid.Row="3">
-                <Image
-                    x:Name="HasSelectCommander"
-                    Margin="0,0,0,0"
-                    MouseLeftButtonDown="CancelCommander_MouseDown"
-                    Style="{StaticResource ClickableImg}" />
-            </Grid>
-
-            <Grid Grid.Row="3" Grid.Column="3">
                 <Button
-                    Margin="0,10,20,0"
+                    Margin="0,0,20,0"
                     Click="Button_Confirm_Click"
                     Content="{Binding [ConfirmBtn], Source={x:Static local:LanguageManager.Instance}}" />
             </Grid>
         </Grid>
-
         <Grid
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="0"
-            Grid.ColumnSpan="6">
+            Grid.ColumnSpan="7">
             <Line
                 Stroke="Gray"
                 StrokeThickness="6"
@@ -394,7 +427,20 @@
         <Grid
             Grid.Row="2"
             Grid.Column="0"
-            Grid.ColumnSpan="6">
+            Grid.ColumnSpan="7">
+            <Line
+                Stroke="Gray"
+                StrokeThickness="1"
+                X1="0"
+                X2="1180"
+                Y1="0"
+                Y2="0" />
+        </Grid>
+
+        <Grid
+            Grid.Row="3"
+            Grid.Column="0"
+            Grid.ColumnSpan="7">
             <Line
                 Stroke="Gray"
                 StrokeThickness="1"
