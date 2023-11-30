@@ -52,7 +52,7 @@ namespace main
             }
             else
             {
-                string HasSelectFactor5_name = (HasSelectFactor3.Source as BitmapImage).UriSource.ToString().Replace("/main;component/Resources/factor/", "").Replace(".png", "");
+                string HasSelectFactor5_name = (HasSelectFactor5.Source as BitmapImage).UriSource.ToString().Replace("/main;component/Resources/factor/", "").Replace(".png", "");
                 HasSelectFactor5_index.Content = FileData.mutator_index_dict[HasSelectFactor5_name];
             }
 
