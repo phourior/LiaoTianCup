@@ -382,6 +382,10 @@ namespace main
         private void ShowRandomFactor()
         {
             var factorListClone = FileData.hubFactorList.DeepClone();
+            var currentFixedFactor = (FixedFactor1.Source as BitmapImage).UriSource.ToString()
+                        .Replace("/main;component/Resources/factor/", "").Replace(".png", "");
+            factorListClone.Remove(currentFixedFactor);
+
             for (int i = 0; i < hasSelectBase.Count; i++)
             {
                 // 去除在前面已经选择过的因子

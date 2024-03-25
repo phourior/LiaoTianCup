@@ -398,6 +398,18 @@ namespace main.Mode
         private void ShowRandomFactor()
         {
             var factorListClone = FileData.hubFactorList.DeepClone();
+
+            var currentFixedFactor1 = (FixedFactor1.Source as BitmapImage).UriSource.ToString()
+                        .Replace("/main;component/Resources/factor/", "").Replace(".png", "");
+            factorListClone.Remove(currentFixedFactor1);
+
+            if (_modeName.Equals(Dictionary.I18n.Lang.ResourceManager.GetString("EightMutatorsMode")))
+            {
+                var currentFixedFactor2 = (FixedFactor2.Source as BitmapImage).UriSource.ToString()
+                        .Replace("/main;component/Resources/factor/", "").Replace(".png", "");
+                factorListClone.Remove(currentFixedFactor2);
+            }
+
             for (int i = 0; i < hasSelectBase.Count; i++)
             {
                 // 去除在前面已经选择过的因子
