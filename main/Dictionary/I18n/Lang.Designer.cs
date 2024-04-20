@@ -331,7 +331,7 @@ namespace main.Dictionary.I18n {
         }
         
         /// <summary>
-        ///   查找类似 Software for practice v0.1.0 - Maintained by phourior 的本地化字符串。
+        ///   查找类似 Software for practice v0.2.3 - Maintained by phourior 的本地化字符串。
         /// </summary>
         public static string MainWindowTitle {
             get {

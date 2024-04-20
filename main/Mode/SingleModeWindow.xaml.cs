@@ -272,6 +272,7 @@ namespace main
             {
                 //3% 18% 79%
                 SortedSet<int> randNum = new SortedSet<int>();
+                randNum.Add(rk.GenerateRandomFromNumToNum(3, 15));
                 while (randNum.Count < 10)
                 {
                     int num = rk.GenerateRandomFromNumToNum(1, 101);

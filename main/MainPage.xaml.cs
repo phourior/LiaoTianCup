@@ -66,7 +66,7 @@ namespace main
 
         private void AboutMeBtn(object sender, RoutedEventArgs e)
         {
-            var url = "https://github.com/B1ackSand/LiaoTianCup";
+            var url = "https://github.com/phourior/LiaoTianCup";
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
         }
 
